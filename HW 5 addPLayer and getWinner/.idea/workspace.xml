@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7a324ec2-fcb5-48cf-b771-13112ce50fef" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CoinGameTestScenarios.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="7a324ec2-fcb5-48cf-b771-13112ce50fef" name="Default" comment="" />
     <ignored path="HW 5 addPLayer and getWinner.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -57,8 +53,8 @@
       <file leaf-file-name="CoinGameTestScenarios.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/CoinGameTestScenarios.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.19305019" vertical-offset="630" max-vertical-offset="2190">
-              <caret line="52" column="58" selection-start-line="52" selection-start-column="58" selection-end-line="52" selection-end-column="58" />
+            <state vertical-scroll-proportion="2.2586873" vertical-offset="0" max-vertical-offset="2190">
+              <caret line="117" column="25" selection-start-line="117" selection-start-column="25" selection-end-line="117" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -503,8 +499,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CoinGameTestScenarios.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19305019" vertical-offset="630" max-vertical-offset="2190">
-          <caret line="52" column="58" selection-start-line="52" selection-start-column="58" selection-end-line="52" selection-end-column="58" />
+        <state vertical-scroll-proportion="2.2586873" vertical-offset="0" max-vertical-offset="2190">
+          <caret line="117" column="25" selection-start-line="117" selection-start-column="25" selection-end-line="117" selection-end-column="25" />
           <folding />
         </state>
       </provider>
