@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7a324ec2-fcb5-48cf-b771-13112ce50fef" name="Default" comment="" />
+    <list default="true" id="7a324ec2-fcb5-48cf-b771-13112ce50fef" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 1 Book:Publication/out/production/s/com/company/Main.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 2 formatting class /out/production/KevinScalabriniHW2/AbstractDuration.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 2 formatting class /out/production/KevinScalabriniHW2/AbstractDurationTest.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 2 formatting class /out/production/KevinScalabriniHW2/Duration.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 2 formatting class /out/production/KevinScalabriniHW2/PackedDuration.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 2 formatting class /out/production/KevinScalabriniHW2/PackedDurationTest.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 2 formatting class /out/production/KevinScalabriniHW2/WideDuration.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 2 formatting class /out/production/KevinScalabriniHW2/WideDurationTest.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 3 Coin Game Lax:Strict /out/production/HW3 Kevin Scalabrini/AbstractCoinGameModel.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 3 Coin Game Lax:Strict /out/production/HW3 Kevin Scalabrini/AbstractCoinGameModelTest.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 3 Coin Game Lax:Strict /out/production/HW3 Kevin Scalabrini/CoinGameModel$IllegalMoveException.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 3 Coin Game Lax:Strict /out/production/HW3 Kevin Scalabrini/CoinGameModel.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 3 Coin Game Lax:Strict /out/production/HW3 Kevin Scalabrini/LaxCoinGameModel.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 3 Coin Game Lax:Strict /out/production/HW3 Kevin Scalabrini/LaxCoinGameModelTest.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 3 Coin Game Lax:Strict /out/production/HW3 Kevin Scalabrini/Lazy.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 3 Coin Game Lax:Strict /out/production/HW3 Kevin Scalabrini/LazyTest.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 3 Coin Game Lax:Strict /out/production/HW3 Kevin Scalabrini/StrictCoinGameModel.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 3 Coin Game Lax:Strict /out/production/HW3 Kevin Scalabrini/StrictCoinGameModelTest.class" afterPath="" />
+    </list>
     <ignored path="HW 5 addPLayer and getWinner.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -134,6 +153,10 @@
               <option name="myItemId" value="HW 5 addPLayer and getWinner" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -142,10 +165,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="HW 5 addPLayer and getWinner" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -381,7 +400,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1440" height="874" extended-state="0" />
+    <frame x="0" y="22" width="1440" height="874" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
