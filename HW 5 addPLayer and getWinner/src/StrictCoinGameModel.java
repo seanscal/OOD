@@ -14,10 +14,10 @@ public final class StrictCoinGameModel implements CoinGameModel {
    * CLASS INVARIANTS: boardSize() > 0, boardArray contains only '-' or 'O' characters
    */
 
-  public int boardSize;
-  public boolean[] booleanArray;
-  public char[] boardArray;
-  public int turns = 0;
+  protected int boardSize;
+  protected boolean[] booleanArray;
+  protected char[] boardArray;
+  protected int turns;
   ArrayList <Integer> players = new ArrayList<Integer>();
 
   public StrictCoinGameModel(String board, int numPlayers) {
@@ -28,6 +28,7 @@ public final class StrictCoinGameModel implements CoinGameModel {
     boardSize = board.length();
     booleanArray = new boolean[boardSize];
     boardArray = new char[boardSize];
+    turns = 0;
     int count = 0;
 
     if (boardSize <= 0) {

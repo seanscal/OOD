@@ -2,24 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7a324ec2-fcb5-48cf-b771-13112ce50fef" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 1 Book:Publication/out/production/s/com/company/Main.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 2 formatting class /out/production/KevinScalabriniHW2/AbstractDuration.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 2 formatting class /out/production/KevinScalabriniHW2/AbstractDurationTest.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 2 formatting class /out/production/KevinScalabriniHW2/Duration.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 2 formatting class /out/production/KevinScalabriniHW2/PackedDuration.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 2 formatting class /out/production/KevinScalabriniHW2/PackedDurationTest.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 2 formatting class /out/production/KevinScalabriniHW2/WideDuration.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 2 formatting class /out/production/KevinScalabriniHW2/WideDurationTest.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 3 Coin Game Lax:Strict /out/production/HW3 Kevin Scalabrini/AbstractCoinGameModel.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 3 Coin Game Lax:Strict /out/production/HW3 Kevin Scalabrini/AbstractCoinGameModelTest.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 3 Coin Game Lax:Strict /out/production/HW3 Kevin Scalabrini/CoinGameModel$IllegalMoveException.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 3 Coin Game Lax:Strict /out/production/HW3 Kevin Scalabrini/CoinGameModel.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 3 Coin Game Lax:Strict /out/production/HW3 Kevin Scalabrini/LaxCoinGameModel.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 3 Coin Game Lax:Strict /out/production/HW3 Kevin Scalabrini/LaxCoinGameModelTest.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 3 Coin Game Lax:Strict /out/production/HW3 Kevin Scalabrini/Lazy.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 3 Coin Game Lax:Strict /out/production/HW3 Kevin Scalabrini/LazyTest.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 3 Coin Game Lax:Strict /out/production/HW3 Kevin Scalabrini/StrictCoinGameModel.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../HW 3 Coin Game Lax:Strict /out/production/HW3 Kevin Scalabrini/StrictCoinGameModelTest.class" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/StrictCoinGameModel.java" afterPath="$PROJECT_DIR$/src/StrictCoinGameModel.java" />
     </list>
     <ignored path="HW 5 addPLayer and getWinner.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -54,25 +37,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StrictCoinGameModel.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="StrictCoinGameModel.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/StrictCoinGameModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1713" max-vertical-offset="2490">
-              <caret line="163" column="3" selection-start-line="163" selection-start-column="3" selection-end-line="163" selection-end-column="3" />
+            <state vertical-scroll-proportion="0.3243243" vertical-offset="1728" max-vertical-offset="2505">
+              <caret line="134" column="13" selection-start-line="134" selection-start-column="13" selection-end-line="134" selection-end-column="13" />
               <folding>
-                <element signature="e#3440#3441#0" expanded="true" />
-                <element signature="e#3471#3472#0" expanded="true" />
-                <element signature="e#3520#3521#0" expanded="true" />
-                <element signature="e#3561#3562#0" expanded="true" />
+                <element signature="e#3463#3464#0" expanded="true" />
+                <element signature="e#3494#3495#0" expanded="true" />
+                <element signature="e#3543#3544#0" expanded="true" />
+                <element signature="e#3584#3585#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CoinGameTestScenarios.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CoinGameTestScenarios.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CoinGameTestScenarios.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.2586873" vertical-offset="0" max-vertical-offset="2190">
+            <state vertical-scroll-proportion="0.0" vertical-offset="795" max-vertical-offset="2190">
               <caret line="117" column="25" selection-start-line="117" selection-start-column="25" selection-end-line="117" selection-end-column="25" />
               <folding />
             </state>
@@ -100,9 +83,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/CoinGameModel.java" />
-        <option value="$PROJECT_DIR$/src/StrictCoinGameModel.java" />
         <option value="$PROJECT_DIR$/src/StrictCoinGameModelTest.java" />
         <option value="$PROJECT_DIR$/src/CoinGameTestScenarios.java" />
+        <option value="$PROJECT_DIR$/src/StrictCoinGameModel.java" />
       </list>
     </option>
   </component>
@@ -467,10 +450,10 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="2580">
           <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding>
-            <element signature="e#3440#3441#0" expanded="true" />
-            <element signature="e#3471#3472#0" expanded="true" />
-            <element signature="e#3520#3521#0" expanded="true" />
-            <element signature="e#3561#3562#0" expanded="true" />
+            <element signature="e#3463#3464#0" expanded="true" />
+            <element signature="e#3494#3495#0" expanded="true" />
+            <element signature="e#3543#3544#0" expanded="true" />
+            <element signature="e#3584#3585#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -503,24 +486,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/StrictCoinGameModel.java">
+    <entry file="file://$PROJECT_DIR$/src/CoinGameTestScenarios.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1713" max-vertical-offset="2490">
-          <caret line="163" column="3" selection-start-line="163" selection-start-column="3" selection-end-line="163" selection-end-column="3" />
-          <folding>
-            <element signature="e#3440#3441#0" expanded="true" />
-            <element signature="e#3471#3472#0" expanded="true" />
-            <element signature="e#3520#3521#0" expanded="true" />
-            <element signature="e#3561#3562#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="795" max-vertical-offset="2190">
+          <caret line="117" column="25" selection-start-line="117" selection-start-column="25" selection-end-line="117" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/CoinGameTestScenarios.java">
+    <entry file="file://$PROJECT_DIR$/src/StrictCoinGameModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.2586873" vertical-offset="0" max-vertical-offset="2190">
-          <caret line="117" column="25" selection-start-line="117" selection-start-column="25" selection-end-line="117" selection-end-column="25" />
-          <folding />
+        <state vertical-scroll-proportion="0.3243243" vertical-offset="1728" max-vertical-offset="2505">
+          <caret line="134" column="13" selection-start-line="134" selection-start-column="13" selection-end-line="134" selection-end-column="13" />
+          <folding>
+            <element signature="e#3463#3464#0" expanded="true" />
+            <element signature="e#3494#3495#0" expanded="true" />
+            <element signature="e#3543#3544#0" expanded="true" />
+            <element signature="e#3584#3585#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
