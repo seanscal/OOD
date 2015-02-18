@@ -9,7 +9,7 @@ public final class StrictCoinGameModel implements CoinGameModel {
    *
    * @param board the number of seconds (non-negative)
    * @throws IllegalArgumentException if {@code board.length()} <= 0
-   * @throws java.lang.IllegalArgumentException if{@code board} characters are not '-' or 'O'
+   * @throws IllegalArgumentException if{@code board} characters are not '-' or 'O'
    *
    * CLASS INVARIANTS: boardSize() > 0, boardArray contains only '-' or 'O' characters
    */
