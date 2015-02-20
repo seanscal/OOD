@@ -132,9 +132,9 @@ public class StrictCoinGameModelTest {
   public void testPlayersTurnsWinners() throws Exception {
     StrictCoinGameModel strict = new StrictCoinGameModel("-O--O", 1);
     assertEquals(strict.currentPlayerTurn(), 0);
-    strict.addPlayer(0);
+    strict.addPlayer(0); //<1,0>
     assertEquals(strict.currentPlayerTurn(), 0);
-    strict.addPlayer(2);
+    strict.addPlayer(2); //<1,0,2>
     assertEquals(strict.currentPlayerTurn(), 0);
     strict.move(1, 2); // -OO--
     assertEquals(strict.currentPlayerTurn(), 2);
@@ -156,11 +156,22 @@ public class StrictCoinGameModelTest {
     assertEquals(strict.currentPlayerTurn(), 2);
     strict.move(1, 1); // OO--OO-
     assertEquals(strict.currentPlayerTurn(), 0);
-    strict.addPlayer(1);
+    strict.addPlayer(1); //<0,3,1,2>
     strict.move(2, 2); // OOO--O-
     assertEquals(strict.currentPlayerTurn(), 3);
     strict.move(3, 3);
     assertEquals(strict.isGameOver(), true);
     assertEquals(strict.getWinner(), 3);
+  }
+
+  @Test
+  public void addPlayerOnWonBoard() throws Exception {
+    StrictCoinGameModel strict = new StrictCoinGameModel("OO-O", 2);
+    strict.move(2, 2); //OOO-
+    try {
+      strict.addPlayer(0);
+    } catch (Exception ex) {
+      assertEquals(ex.getMessage(), "Cannot add players to a finished game");
+    }
   }
 }

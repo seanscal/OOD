@@ -66,7 +66,7 @@ public final class StrictCoinGameModel implements CoinGameModel {
   public int coinCount() {
     int count = 0;
     for (int i = 0; i < boardSize(); i++) {
-      if (booleanArray[i] == true) {
+      if (booleanArray[i]) {
         count++;
       }
     }
@@ -78,7 +78,7 @@ public final class StrictCoinGameModel implements CoinGameModel {
     int count = 0;
 
     for (int i = 0; i < boardSize(); i++) {
-      if (booleanArray[i] == true) {
+      if (booleanArray[i]) {
         if (count == coinIndex) {
           return i;
         }
@@ -138,6 +138,9 @@ public final class StrictCoinGameModel implements CoinGameModel {
 
   @Override
   public void addPlayer(int index) {
+    if (isGameOver()){
+      throw new IllegalArgumentException("Cannot add players to a finished game");
+    }
     if (index <= currentPlayerTurn()) {
       turn++;
     }
@@ -164,15 +167,14 @@ public final class StrictCoinGameModel implements CoinGameModel {
   public String toString() {
     int count = 0;
     while (count < boardSize) {
-      if (booleanArray[count] == true) {
+      if (booleanArray[count]) {
         boardArray[count] = 'O';
-      } else if (booleanArray[count] == false) {
+      } else if (!booleanArray[count]) {
         boardArray[count] = '-';
       }
       count++;
     }
-    String board = new String(boardArray);
-    return board;
+    return new String(boardArray);
   }
 }
 
