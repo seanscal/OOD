@@ -1,7 +1,9 @@
-1 Purpose
+<b>1. Purpose</b>
+
 The goal of this assignment is to practice reading, understanding, and testing unfamiliar code.
 
-2 Too Many Books
+<b>2 Too Many Books</b>
+
 Ann has a lot of books. So many books, in fact, that she has to store them in several places:
 
 Her desk has a mere 3 shelf-feet of book capacity.
@@ -32,24 +34,31 @@ K require(K) is where all the action happens. It takes the name of an item—the
 
 Ann is rather impatient, so the require(K) method must run in worst-case (capacity()) time.
 
-2.1 Disaster!
+<b>2.1 Disaster!</b>
+
 Ann implemented all three policies, as classes FifoPolicy, LruPolicy, and ClockPolicy, but then disaster struck. She lost the source code and tests for FifoPolicy, but not the compiled Java .class file. She lost the source code and .class file for LruPolicy, but not the tests. The ClockPolicy code, fortunately, is safe, and the Javadoc output for all three classes survived as well; both may be handy as a reference.
 
 Now Ann needs your help. She’s currently working on reimplementing the FifoPolicy class. To speed things up, she’d like you to implement the LruPolicy class and to write tests for her FifoPolicy class. Since the FifoPolicy.class object file survived the disaster, you will be able to run your tests on that code (though like I said, the source isn’t available). Once you have a good number of tests, Ann will use your test suite to validate her new FifoPolicy implementation, and hopefully your tests will catch any bugs.
 
-2.2 Your Task
+
+<b>2.2 Your Task</b>
+
 Read and understand the ClockPolicy and ClockTest classes. You don’t need to write anything, but you may find the knowledge handy later. (Note that ClockPolicy is implemented using low-level arrays, but you are free to use classes from the Java Collections framework such as LinkedList and HashSet for your code.)
 Download the pset06.jar JAR file containing the compiled FifoPolicy class and add it to your project’s classpath. (How to do this will depend on your IDE, and help will be available on Piazza.)
 Implement the LruPolicy class, as documented here. The class should have one constructor, LruPolicy(int), which takes the capacity of the queue (i.e., how many items can fit at once). The minimum allowed capacity is 1, so any smaller argument should result in an IllegalArgumentException being thrown. LruPolicyTest contains an example, and you should add comprehensive tests there as you see fit.
 Write tests for Ann’s implementation of FifoPolicy (as documented here) in a JUnit 4 test class FifoPolicyTest. Run your tests against the provided binary implementation of FifoPolicy—all of them should pass. Be sure to write sufficient tests that you will catch any plausible bugs that Ann might write. Your tests will be run against several buggy FifoPolicy implementations, and you will be graded on how many bugs your tests catch—but they also need to pass when class under testing is correct.
 
-3 List of Deliverables
-LruPolicy.java
-LruPolicyTest.java
-FifoPolicyTest.java
+<b>3 List of Deliverables</b>
+
+	LruPolicy.java
+
+	LruPolicyTest.java
+
+	FifoPolicyTest.java
 
 
-4 Grading Standards
+<b>4 Grading Standards</b>
+
 For this assignment, you will be graded on whether your LruPolicy code implements the specification (functional correctness),
 the comprehensiveness and correctness of your test coverage in FifoPolicyTest, and how well you follow the style guide.
 Regarding the second point, your FifoPolicy tests will be run on a correct implementation of FifoPolicy (included in the JAR file) as well as several incorrect versions. All your tests must pass on the correct version in order to earn points for finding bugs in the incorrect version.
