@@ -32,10 +32,15 @@ Fill in the testing scenarios in CoinGameTestScenarios.java.
 
 <b>4 List of Deliverables</b>
 
-    CoinGameModel.java
+    [CoinGameModel.java]
 
-    StrictCoinGameModel.java
+    [StrictCoinGameModel.java]
 
-    StrictCoinGameModelTest.java
+    [StrictCoinGameModelTest.java]
 
-    NEW: CoinGameTestScenarios.java
+    NEW: [CoinGameTestScenarios.java]
+
+[CoinGameModel.java]:https://github.com/seanscal/OOD/blob/master/HW%205%20addPLayer%20getWinner/src/CoinGameModel.java
+[StrictCoinGameModel.java]:https://github.com/seanscal/OOD/blob/master/HW%205%20addPLayer%20getWinner/src/CoinGameTestScenarios.java
+[StrictCoinGameModelTest.java]:https://github.com/seanscal/OOD/blob/master/HW%205%20addPLayer%20getWinner/src/StrictCoinGameModelTest.java
+[CoinGameTestScenarios.java]:https://github.com/seanscal/OOD/blob/master/HW%205%20addPLayer%20getWinner/src/CoinGameTestScenarios.java
