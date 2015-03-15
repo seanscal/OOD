@@ -32,10 +32,10 @@ Fill in the testing scenarios in CoinGameTestScenarios.java.
 
 <b>4 List of Deliverables</b>
 
-  CoinGameModel.java
+    CoinGameModel.java
 
-  StrictCoinGameModel.java
+    StrictCoinGameModel.java
 
-  StrictCoinGameModelTest.java
+    StrictCoinGameModelTest.java
 
-  NEW: CoinGameTestScenarios.java
+    NEW: CoinGameTestScenarios.java
