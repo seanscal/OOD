@@ -1,4 +1,5 @@
 <b>1 Purpose</b>
+
 The goal of this assignment is to gain experience implementing your own interface and dealing with changing requirements.
 
 <b>3 Your task</b>
