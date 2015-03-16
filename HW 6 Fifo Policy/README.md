@@ -24,6 +24,6 @@ the comprehensiveness and correctness of your test coverage in FifoPolicyTest, a
 Regarding the second point, your FifoPolicy tests will be run on a correct implementation of FifoPolicy (included in the JAR file) as well as several incorrect versions. All your tests must pass on the correct version in order to earn points for finding bugs in the incorrect version.
 
 
-[LruPolicy.java]:https://github.com/seanscal/OOD/blob/master/HW%206%20Fifo%20Policy/LruPolicy.html
-[LruPolicyTest.java]:https://github.com/seanscal/OOD/blob/master/HW%206%20Fifo%20Policy/LruPolicyTest.html
-[FifoPolicyTest.java]:https://github.com/seanscal/OOD/blob/master/HW%206%20Fifo%20Policy/FifoPolicyTest.html
+[LruPolicy.java]:https://github.com/seanscal/OOD/blob/master/HW%206%20Fifo%20Policy/src/LruPolicy.java
+[LruPolicyTest.java]:https://github.com/seanscal/OOD/blob/master/HW%206%20Fifo%20Policy/src/LruPolicyTest.java
+[FifoPolicyTest.java]:https://github.com/seanscal/OOD/blob/master/HW%206%20Fifo%20Policy/src/LruPolicy.java
