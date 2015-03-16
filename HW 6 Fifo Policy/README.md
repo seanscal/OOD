@@ -23,6 +23,3 @@ Write tests for Ann’s implementation of FifoPolicy (as documented here) in a J
 For this assignment, you will be graded on whether your LruPolicy code implements the specification (functional correctness),
 the comprehensiveness and correctness of your test coverage in FifoPolicyTest, and how well you follow the style guide.
 Regarding the second point, your FifoPolicy tests will be run on a correct implementation of FifoPolicy (included in the JAR file) as well as several incorrect versions. All your tests must pass on the correct version in order to earn points for finding bugs in the incorrect version.
-
-
-Yes, all books are the same size.↩
