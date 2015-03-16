@@ -11,15 +11,19 @@ Write tests for Ann’s implementation of FifoPolicy (as documented here) in a J
 
 <b>3 List of Deliverables</b>
 
-	LruPolicy.java
+[LruPolicy.java]
 
-	LruPolicyTest.java
+[LruPolicyTest.java]
 
-	FifoPolicyTest.java
-
+[FifoPolicyTest.java]
 
 <b>4 Grading Standards</b>
 
 For this assignment, you will be graded on whether your LruPolicy code implements the specification (functional correctness),
 the comprehensiveness and correctness of your test coverage in FifoPolicyTest, and how well you follow the style guide.
 Regarding the second point, your FifoPolicy tests will be run on a correct implementation of FifoPolicy (included in the JAR file) as well as several incorrect versions. All your tests must pass on the correct version in order to earn points for finding bugs in the incorrect version.
+
+
+[LruPolicy.java]:https://github.com/seanscal/OOD/blob/master/HW%206%20Fifo%20Policy/LruPolicy.html
+[LruPolicyTest.java]:https://github.com/seanscal/OOD/blob/master/HW%206%20Fifo%20Policy/LruPolicyTest.html
+[FifoPolicyTest.java]:https://github.com/seanscal/OOD/blob/master/HW%206%20Fifo%20Policy/FifoPolicyTest.html
