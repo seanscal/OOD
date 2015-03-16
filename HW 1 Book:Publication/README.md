@@ -10,8 +10,8 @@
 <p>Coding style is important. For this class, we will follow <a href="https://google-styleguide.googlecode.com/svn/trunk/javaguide.html">Google’s Java style guide</a>. It’s comprehesive, but not very long—I suggest reading the whole thing and then referring to it as needed.</p>
 <h1 id="list-of-deliverables"><span class="header-section-number">3</span> List of Deliverables</h1>
 <ul>
-<li><a href="HW%201%20Book:Publication/src/Book.java"><code>Book.java</code></a></li>
-<li><a href="HW%201%20Book:Publication/src/Book.java"><code>BookTest.java</code></a></li>
+<li><a href="src/Book.java"><code>Book.java</code></li>
+<li><a href="src/BookTest.java"><code>BookTest.java</code></li>
 </ul>
 <h1 id="grading-standards"><span class="header-section-number">4</span> Grading Standards</h1>
 <p>For this assignment, you will be graded on</p>
