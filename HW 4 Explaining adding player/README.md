@@ -35,9 +35,9 @@
 <p><strong>You need not run these tests, because that would require implementing the class under test.</strong> Even though you cannot run them, writing tests is a good way to make sure your interface makes sense and to demonstrate that to the graders.</p>
 <h1 id="deliverables"><span class="header-section-number">3</span> Deliverables</h1>
 <ul>
-<li><a href="src/CoinGameModel.java"><code>CoinGameModel.java</code></li>
-<li><a href="src/StrictCoinGameModel.java"><code>StrictCoinGameModel.java</code></li>
-<li><a href="src/StrictCoinGameModel.java"><code>StrictCoinGameModelTest.java</code></li>
+<li><a href="../master/HW%204%20Explaining%20adding%20player/src/CoinGameModel.java"><code>CoinGameModel.java</code></li>
+<li><a href="../maste/HW%204%20Explaining%20adding%20player/src/StrictCoinGameModel.java"><code>StrictCoinGameModel.java</code></li>
+<li><a href="../master/HW%204%20Explaining%20adding%20player/src/StrictCoinGameModel.java"><code>StrictCoinGameModelTest.java</code></li>
 </ul>
 <h1 id="grading-standards"><span class="header-section-number">4</span> Grading Standards</h1>
 <p>For this assignment, you will be graded on:</p>
