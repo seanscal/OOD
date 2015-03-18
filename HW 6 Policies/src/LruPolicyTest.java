@@ -53,9 +53,11 @@ public class LruPolicyTest {
     Integer evicted = policy.require(6);    // 3 4 5 1 6
     assertEquals(evicted.intValue(), 2);
   }
+
+  @Test
   public void testEvictionAfterOrderChangeTwoDiffTypes() {
     ReplacementPolicy<String> policy2 = new LruPolicy<>(5);
-    assertNull(policy2.require("one")); 
+    assertNull(policy2.require("one"));
     assertNull(policy2.require("two"));
     assertNull(policy2.require("three"));
     assertNull(policy2.require("four"));
@@ -63,6 +65,8 @@ public class LruPolicyTest {
     String evicted = policy2.require("six");
     assertEquals(evicted, "one");
   }
+
+
   /**
    * Here's an example of using the LRU policy. The comments on the right show the state of the
    * cache/queue after each {@code require} operation.

@@ -62,6 +62,19 @@ public class FifoPolicyTest {
   }
 
   @Test
+  public void testEvictionAfterOrderChangeTwoDiffTypes() {
+    ReplacementPolicy<String> policy2 = new FifoPolicy<>(5);
+    assertNull(policy2.require("one"));       // one _ _ _ _
+    assertNull(policy2.require("two"));       // one two _ _ _
+    assertNull(policy2.require("three"));     // one two three _ _
+    assertNull(policy2.require("four"));      // one two three four _
+    assertNull(policy2.require("five"));      // one two three four five
+    assertNull(policy2.require("one"));       // one two three four five
+    String evicted = policy2.require("six");  // two three four five six
+    assertEquals(evicted, "one");
+  }
+
+  @Test
   public void testRequireLong() {
     assertNull(policy.require(5));                // 1 2 3 4 5
     assertEquals((Integer) 1, policy.require(9)); // 2 3 4 5 9
