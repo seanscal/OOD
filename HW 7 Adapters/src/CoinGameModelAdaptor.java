@@ -93,6 +93,10 @@ public class CoinGameModelAdaptor implements NewCoinGameModel {
 
   @Override
   public CoinGamePlayer addPlayerAfter(CoinGamePlayer predecessor, String name){
+    int index= -1;
+    Player created = null;
+    Player player = new Player(players.size(),name,adaptor);
+
     if (predecessor == null) {
       throw new NullPointerException("Predecessor value null");
     }
@@ -103,25 +107,23 @@ public class CoinGameModelAdaptor implements NewCoinGameModel {
       if (players.get(i).getName().equals(name)) {
         throw new IllegalArgumentException("Name already in use.");
       }
-    }
-
-    int index;
-    Player player = new Player(players.size(),name,adaptor);
-    for (int i=0; i < players.size(); i++){
       if (predecessor.getName().equals(player.getName())) {
-
-        index = i+1;
-
-        if (index == players.size()) {
-          players.add(player);
-        }
-
-        players.add(index,player);
-      }
-      else{
-        throw new IllegalArgumentException("Predecessor not in array");
+        index = i + 1;
       }
     }
-    return player;
+
+    if (index == players.size()) {
+      players.add(player);
+      created = player;
+    }
+    else if(index>= 0) {
+      players.add(index, player);
+      created = player;
+    }
+    else if(index == -1)
+    {
+      created = null;
+    }
+    return created;
   }
 }
