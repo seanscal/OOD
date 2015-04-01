@@ -10,6 +10,60 @@ public final class StrictCoinGameModel implements CoinGameModel {
   private char[] boardArray;
   private int turn;
   private ArrayList<Integer> players = new ArrayList<Integer>();
+  private ArrayList<String> names = new ArrayList<String>();
+
+  /*************************************ADDED FOR Project 7*****************************************
+  /**
+   * Constructs a CoinGameModel in terms Strict Rules
+   *
+   * @param board      String representation of the game board
+   * @param Players the names of players (must be > 0)
+   * @throws java.lang.NullPointerException     if {@code board} is null
+   * @throws IllegalArgumentException           if {@code board.length()} <= 0
+   * @throws java.lang.IllegalArgumentException if{@code board} characters are not '-' or 'O'
+   * @throws java.lang.IllegalArgumentException if {@code numPlayers} <= 0
+   */
+  public StrictCoinGameModel(String board, String... Players) {
+    int numPlayers = Players.length;
+
+    if (board == null) {
+      throw new NullPointerException("No board detected for play");
+    }
+
+    boardSize = board.length();
+    booleanArray = new boolean[boardSize];
+    boardArray = new char[boardSize];
+    int count = 0;
+
+    if (boardSize <= 0) {
+      throw new IllegalArgumentException("Board must contain at least 1 space");
+    }
+
+    while (count < boardSize) {
+      if (board.charAt(count) == 'O') {
+        booleanArray[count] = true;
+      } else if (board.charAt(count) == '-') {
+        booleanArray[count] = false;
+      } else {
+        throw new IllegalArgumentException("Illegal character on board.");
+      }
+      count++;
+    }
+
+    if (numPlayers < 1) {
+      throw new IllegalArgumentException("Must be at least 1 player");
+    }
+
+    for (int i = 0; i < numPlayers; i++) {
+      players.add(i);
+      names.add(Players[i]);
+    }
+
+    turn = 0;
+  }
+
+  /******************************^^^ADDED FOR Project 7^^^******************************************
+
 
   /**
    * Constructs a CoinGameModel in terms Strict Rules
@@ -52,6 +106,7 @@ public final class StrictCoinGameModel implements CoinGameModel {
 
     for (int i = 0; i < numPlayers; i++) {
       players.add(i);
+      names.add("Player "+i);
     }
 
     turn = 0;
@@ -62,6 +117,13 @@ public final class StrictCoinGameModel implements CoinGameModel {
   public ArrayList<Integer> getPlayersArray()
   {
     return players;
+  }
+
+  //Need this to import the adapter playernames to the Adapter
+  @Override
+  public ArrayList<String> getPlayerNames()
+  {
+    return names;
   }
 
   @Override
@@ -152,6 +214,7 @@ public final class StrictCoinGameModel implements CoinGameModel {
       turn++;
     }
     players.add(index, getPlayers());
+    names.add(index,"Player "+getPlayers());
   }
 
   @Override

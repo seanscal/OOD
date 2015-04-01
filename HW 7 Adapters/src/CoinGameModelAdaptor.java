@@ -7,6 +7,13 @@ public class CoinGameModelAdaptor implements NewCoinGameModel {
   private ArrayList<Player> players;
   CoinGameModel adaptor;
 
+  public static CoinGameModelAdaptor CoinGameModelAdaptor(String initialBoard, String... players)
+  {
+    CoinGameModel myCoinGame = new StrictCoinGameModel(initialBoard, players);
+    CoinGameModelAdaptor adapt = new CoinGameModelAdaptor(myCoinGame);
+    return adapt;
+  }
+
   public CoinGameModelAdaptor(CoinGameModel adaptee){
     adaptor = adaptee;
     boardSize = adaptee.boardSize();
@@ -83,6 +90,7 @@ public class CoinGameModelAdaptor implements NewCoinGameModel {
 
     Player current = new Player(adaptor.currentPlayerTurn(),adaptor);
 
+    //same here
     for (int i=0; i < players.size(); i++) {
       if (players.get(i) == current) {
         curr = players.get(i);
@@ -107,7 +115,7 @@ public class CoinGameModelAdaptor implements NewCoinGameModel {
       if (players.get(i).getName().equals(name)) {
         throw new IllegalArgumentException("Name already in use.");
       }
-      if (predecessor.getName().equals(player.getName())) {
+      if (predecessor.getName().equals(players.get(i).getName())) {
         index = i + 1;
       }
     }
