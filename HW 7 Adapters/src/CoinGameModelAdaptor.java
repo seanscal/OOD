@@ -4,7 +4,6 @@ public class CoinGameModelAdaptor implements NewCoinGameModel {
 
   private int boardSize;
   private boolean[] boardArray;
-  private int turn;
   private ArrayList<Player> players;
   CoinGameModel adaptor;
 
@@ -81,7 +80,7 @@ public class CoinGameModelAdaptor implements NewCoinGameModel {
     }
 
     int index;
-    Player player = new Player(players.size(),name);
+    Player player = new Player(players.size(),name,adaptor);
     for (int i=0; i < players.size(); i++){
       if (predecessor.getName().equals(player.getName())) {
 

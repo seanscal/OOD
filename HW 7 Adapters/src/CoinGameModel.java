@@ -6,7 +6,15 @@ import java.util.ArrayList;
  */
 public interface CoinGameModel {
 
+
+  /**
+   * returns the players currently playing
+   * needed specifically for the adapter
+   *
+   * @return Arraylist of player IDs
+   */
   ArrayList<Integer> getPlayersArray();
+
   /**
    * Gets the size of the board (the number of squares)
    *

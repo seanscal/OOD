@@ -57,6 +57,7 @@ public final class StrictCoinGameModel implements CoinGameModel {
     turn = 0;
   }
 
+  //Need this to import the current players to the Adapter
   @Override
   public ArrayList<Integer> getPlayersArray()
   {

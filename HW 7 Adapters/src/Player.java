@@ -7,13 +7,13 @@ public class Player implements CoinGamePlayer {
   CoinGameModel adaptor;
 
   public Player(int id, CoinGameModel adaptee) {
-    this(id, "Player "+id);
-    adaptor = adaptee;
+    this(id, "Player "+id,adaptee);
   }
 
-  public Player(int id, String playerName){
+  public Player(int id, String playerName, CoinGameModel adaptee){
     uid = id;
     name = playerName;
+    adaptor = adaptee;
   }
 
   @Override
