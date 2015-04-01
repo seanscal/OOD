@@ -10,8 +10,7 @@ public class CoinGameModelAdaptor implements NewCoinGameModel {
   public static CoinGameModelAdaptor CoinGameModelAdaptor(String initialBoard, String... players)
   {
     CoinGameModel myCoinGame = new StrictCoinGameModel(initialBoard, players);
-    CoinGameModelAdaptor adapt = new CoinGameModelAdaptor(myCoinGame);
-    return adapt;
+    return new CoinGameModelAdaptor(myCoinGame);
   }
 
   public CoinGameModelAdaptor(CoinGameModel adaptee){
