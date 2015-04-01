@@ -62,12 +62,33 @@ public class CoinGameModelAdaptor implements NewCoinGameModel {
 
   @Override
   public CoinGamePlayer getWinner(){
-    return new Player(adaptor.getWinner(),adaptor);
+
+    Player wins = null;
+
+    Player winner = new Player(adaptor.getWinner(),adaptor);
+
+    //should work, maybe need to compare names instead because its creating a new player?
+    for (int i=0; i < players.size(); i++) {
+      if (players.get(i) == winner) {
+        wins = players.get(i);
+      }
+    }
+    return wins;
   }
 
   @Override
   public CoinGamePlayer getCurrentPlayer(){
-    return new Player(adaptor.currentPlayerTurn(),adaptor);
+
+    Player curr = null;
+
+    Player current = new Player(adaptor.currentPlayerTurn(),adaptor);
+
+    for (int i=0; i < players.size(); i++) {
+      if (players.get(i) == current) {
+        curr = players.get(i);
+      }
+    }
+    return curr;
   }
 
   @Override
@@ -77,6 +98,11 @@ public class CoinGameModelAdaptor implements NewCoinGameModel {
     }
     if (name == null) {
       throw new NullPointerException("Name value null");
+    }
+    for (int i=0; i < players.size(); i++){
+      if (players.get(i).getName().equals(name)) {
+        throw new IllegalArgumentException("Name already in use.");
+      }
     }
 
     int index;
