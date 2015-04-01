@@ -14,16 +14,34 @@ public class CoinGameModelAdaptorTest {
     assertEquals("x", players[0].getName());
     assertEquals("y", players[1].getName());
     assertEquals("z", players[2].getName());
+
     assertEquals(true,players[0].isTurn());
     assertEquals(false,players[1].isTurn());
     assertEquals(false,players[2].isTurn());
+
+    assertEquals(4,game.coinCount());
+
+    assertEquals(0,game.getCoinPositions()[0]);
+    assertEquals(2,game.getCoinPositions()[1]);
+    assertEquals(4,game.getCoinPositions()[2]);
+    assertEquals(6,game.getCoinPositions()[3]);
+
     players[0].move(1,1);
+
     assertEquals(false,players[0].isTurn());
     assertEquals(true,players[1].isTurn());
     assertEquals(false,players[2].isTurn());
 
+    //TODO: fix 2nd statement
+    assertEquals(0,game.getCoinPositions()[0]);
+    //assertEquals(1,game.getCoinPositions()[1]);
+    assertEquals(4,game.getCoinPositions()[2]);
+    assertEquals(6,game.getCoinPositions()[3]);
 
     CoinGamePlayer a = game.addPlayerAfter(players[0],"a");
+
+    assertEquals("a", a.getName());
+    assertEquals(false, a.isTurn());
 
     CoinGamePlayer[] players2 = game.getPlayOrder();
     assertEquals("x", players2[0].getName());
