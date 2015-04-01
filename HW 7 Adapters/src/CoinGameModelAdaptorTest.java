@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 public class CoinGameModelAdaptorTest {
 
     String[] players = {"x","y","z"};
-    CoinGameModelAdaptor game = CoinGameModelAdaptor.CoinGameModelAdaptor("O-O-O-O", players);
+    CoinGameModelAdaptor game = CoinGameModelAdaptor.fromString("O-O-O-O", players);
 
   @Test
   public void test_a_bunch_of_stuff() {
@@ -32,7 +32,7 @@ public class CoinGameModelAdaptorTest {
     assertEquals(true,players[1].isTurn());
     assertEquals(false,players[2].isTurn());
 
-    //TODO: fix 2nd statement
+    //TODO: fix getCoinPositions so 2nd statement works
     assertEquals(0,game.getCoinPositions()[0]);
     //assertEquals(1,game.getCoinPositions()[1]);
     assertEquals(4,game.getCoinPositions()[2]);

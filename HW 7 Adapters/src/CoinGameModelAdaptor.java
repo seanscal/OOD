@@ -7,7 +7,7 @@ public class CoinGameModelAdaptor implements NewCoinGameModel {
   private ArrayList<Player> players;
   CoinGameModel adaptor;
 
-  public static CoinGameModelAdaptor CoinGameModelAdaptor(String initialBoard, String... players)
+  public static CoinGameModelAdaptor fromString(String initialBoard, String... players)
   {
     CoinGameModel myCoinGame = new StrictCoinGameModel(initialBoard, players);
     return new CoinGameModelAdaptor(myCoinGame);
