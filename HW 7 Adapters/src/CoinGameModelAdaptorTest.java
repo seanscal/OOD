@@ -54,6 +54,8 @@ public class CoinGameModelAdaptorTest {
     assertEquals(true,players2[2].isTurn());
     assertEquals(false,players2[3].isTurn());
 
+    assertEquals(players2[2], game.getCurrentPlayer());
+
     try {
       players[0].move(1, 1);
     }
