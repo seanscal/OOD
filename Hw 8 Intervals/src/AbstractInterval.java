@@ -60,7 +60,7 @@ public abstract class AbstractInterval<T> implements Interval {
     if (upper == null || lower == null || comp == null) {
       throw new NullPointerException("No values can be null");
     }
-    if (comparator.compare(lowerBound,upperBound) == 1){
+    if (comparator.compare(lowerBound,upperBound) > 0){
       throw new IndexOutOfBoundsException("Lower Bound greater than upper");
     }
     if(lower.getClass() != upper.getClass()){
@@ -89,27 +89,28 @@ public abstract class AbstractInterval<T> implements Interval {
     T val = (T) value;
     if (this.lowerBoundType() == BoundType.Closed){
       if (this.upperBoundType() == BoundType.Closed){
-        switch (comparator.compare((T) this.lowerBound(), val)){
-          case 1:
-            return false;
-          case 0:case -1:
-            switch (comparator.compare((T) this.upperBound(), val)){
-              case -1:
-                return false;
-              case 1:case 0:
+        double dif = (comparator.compare((T) this.lowerBound(), val));
+        if (comparator.compare((T) this.lowerBound(), val) >= 1) {
+          return false;
+        }
+         else{
+            if (comparator.compare((T) this.upperBound(), val)<= -1) {
+              return false;
+            }
+            else{
                 return true;
             }
         }
       }
       if (this.upperBoundType() == BoundType.Open){
-        switch (comparator.compare((T) this.lowerBound(), val)){
-          case 1:
-            return false;
-          case 0:case -1:
-            switch (comparator.compare((T) this.upperBound(), val)){
-              case -1:case 0:
-                return false;
-              case 1:
+        if (comparator.compare((T) this.lowerBound(), val)>=1) {
+          return false;
+        }
+        else{
+            if (comparator.compare((T) this.upperBound(), val)<=0) {
+              return false;
+            }
+            else{
                 return true;
             }
         }
@@ -117,27 +118,27 @@ public abstract class AbstractInterval<T> implements Interval {
     }
     if (this.lowerBoundType() == BoundType.Open){
       if (this.upperBoundType() == BoundType.Closed){
-        switch (comparator.compare((T) this.lowerBound(), val)){
-          case 1:case 0:
-            return false;
-          case -1:
-            switch (comparator.compare((T) this.upperBound(), val)){
-              case -1:
-                return false;
-              case 1:case 0:
+        if (comparator.compare((T) this.lowerBound(), val)>=0) {
+          return false;
+        }
+        else{
+            if (comparator.compare((T) this.upperBound(), val)<=-1) {
+              return false;
+            }
+            else{
                 return true;
             }
         }
       }
       if (this.upperBoundType() == BoundType.Open){
-        switch (comparator.compare((T) this.lowerBound(), val)){
-          case 1:case 0:
-            return false;
-          case -1:
-            switch (comparator.compare((T) this.upperBound(), val)){
-              case -1:case 0:
-                return false;
-              case 1:
+        if (comparator.compare((T) this.lowerBound(), val)>=0) {
+          return false;
+        }
+        else{
+            if (comparator.compare((T) this.upperBound(), val)<=0) {
+              return false;
+            }
+            else{
                 return true;
             }
         }
@@ -154,11 +155,11 @@ public abstract class AbstractInterval<T> implements Interval {
       if (this.upperBoundType() == BoundType.Open){
         if (other.upperBoundType() == BoundType.Closed){
           return this.contains(other.lowerBound()) &&
-                 comparator.compare(this.upperBound(),(T)other.upperBound()) == 1;
+                 comparator.compare(this.upperBound(),(T)other.upperBound()) >= 1;
         }
         if (other.upperBoundType() == BoundType.Open){
           return this.contains(other.lowerBound()) &&
-                 comparator.compare(this.upperBound(),(T)other.upperBound()) != -1;
+                 comparator.compare(this.upperBound(),(T)other.upperBound()) >= 0;
         }
       }
     }
@@ -166,33 +167,33 @@ public abstract class AbstractInterval<T> implements Interval {
     if (this.lowerBoundType() == BoundType.Open) {
       if (this.upperBoundType() == BoundType.Closed) {
         if (other.lowerBoundType() == BoundType.Closed) {
-          return comparator.compare(this.lowerBound(), (T) other.lowerBound()) == -1
+          return comparator.compare(this.lowerBound(), (T) other.lowerBound()) <= -1
                  && this.contains(other.upperBound());
         }
         if (other.lowerBoundType() == BoundType.Open) {
-          return comparator.compare(this.lowerBound(), (T) other.lowerBound()) != 1
+          return comparator.compare(this.lowerBound(), (T) other.lowerBound()) < 1
                  && this.contains(other.upperBound());
         }
       }
       if (this.upperBoundType() == BoundType.Open){
         if (other.lowerBoundType() == BoundType.Closed) {
           if (other.upperBoundType() == BoundType.Closed) {
-            return comparator.compare(this.lowerBound(), (T) other.lowerBound()) == -1 &&
-                   comparator.compare(this.upperBound(), (T) other.upperBound()) == 1;
+            return comparator.compare(this.lowerBound(), (T) other.lowerBound()) <= -1 &&
+                   comparator.compare(this.upperBound(), (T) other.upperBound()) >= 1;
           }
           if (other.upperBoundType() == BoundType.Open) {
-            return comparator.compare(this.lowerBound(), (T) other.lowerBound()) == -1 &&
-                   comparator.compare(this.upperBound(), (T) other.upperBound()) != -1;
+            return comparator.compare(this.lowerBound(), (T) other.lowerBound()) <= -1 &&
+                   comparator.compare(this.upperBound(), (T) other.upperBound()) > -1;
           }
         }
         if (other.lowerBoundType() == BoundType.Open) {
           if (other.upperBoundType() == BoundType.Closed) {
-            return comparator.compare(this.lowerBound(), (T) other.lowerBound()) != 1 &&
-                   comparator.compare(this.upperBound(), (T) other.upperBound()) == 1;
+            return comparator.compare(this.lowerBound(), (T) other.lowerBound()) < 1 &&
+                   comparator.compare(this.upperBound(), (T) other.upperBound()) >= 1;
           }
           if (other.upperBoundType() == BoundType.Open) {
-            return comparator.compare(this.lowerBound(), (T) other.lowerBound()) != 1 &&
-                   comparator.compare(this.upperBound(), (T) other.upperBound()) != -1;
+            return comparator.compare(this.lowerBound(), (T) other.lowerBound()) < 1 &&
+                   comparator.compare(this.upperBound(), (T) other.upperBound()) > -1;
           }
         }
       }
@@ -204,7 +205,7 @@ public abstract class AbstractInterval<T> implements Interval {
   public Interval intersection(Interval other) {
 
     if (other.isEmpty()){
-      return new EmptyInterval();
+      return Intervals.empty();
     }
 
     BoundType lowerType = this.lowerBoundType();
@@ -212,121 +213,103 @@ public abstract class AbstractInterval<T> implements Interval {
     T upper = (T) this.upperBound();
     T lower = (T) this.lowerBound();
 
+    if ((comparator.compare(upper, (T) other.lowerBound()) < 1)){
+      if (upperType == BoundType.Closed && other.upperBoundType() == BoundType.Closed){
+        return Intervals.singleton(upper,this.comparator);
+      }
+      else{
+        return Intervals.empty();
+      }
+    }
+
     if (lowerType == BoundType.Closed) {
       if (upperType == BoundType.Closed) {
-        switch (comparator.compare(lower, (T) other.lowerBound())) {
-          case 1:
-            switch (comparator.compare(upper, (T) other.upperBound())) {
-              case 1:
-              case 0:
-                return Intervals.interval(lower, lowerType, (T) other.upperBound()
-                    , other.upperBoundType(), this.comparator);
-              case -1:
-                return Intervals.interval(lower, lowerType, upper, upperType, this.comparator);
-            }
-            break;
-          case -1:
-          case 0:
-            switch (comparator.compare(upper, (T) other.upperBound())) {
-              case 1:
-              case 0:
-                return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
-                                          (T) other.upperBound(), other.upperBoundType(),
-                                          this.comparator);
-              case -1:
+        if (comparator.compare(lower, (T) other.lowerBound())>=1) {
+          if (comparator.compare(upper, (T) other.upperBound()) >= 0) {
+            return Intervals.interval(lower, lowerType, (T) other.upperBound()
+                , other.upperBoundType(), this.comparator);
+          } else {
+            return Intervals.interval(lower, lowerType, upper, upperType, this.comparator);
+          }
+        }
+        else{
+          if (comparator.compare(upper, (T) other.upperBound())>=0) {
+            return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
+                                      (T) other.upperBound(), other.upperBoundType(),
+                                      this.comparator);
+          }
+          else{
                 return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
                                           upper, upperType, this.comparator);
             }
-            break;
         }
       }
       if (upperType == BoundType.Open) {
-        switch (comparator.compare(lower, (T) other.lowerBound())) {
-          case 1:
-            switch (comparator.compare(upper, (T) other.upperBound())) {
-              case 1:
-                return Intervals.interval(lower, lowerType, (T) other.upperBound()
-                    , other.upperBoundType(), this.comparator);
-              case -1:
-              case 0:
-                return Intervals.interval(lower, lowerType, upper, upperType, this.comparator);
-            }
-            break;
-          case -1:
-          case 0:
-            switch (comparator.compare(upper, (T) other.upperBound())) {
-              case 1:
-
-                return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
-                                          (T) other.upperBound(), other.upperBoundType(),
-                                          this.comparator);
-              case 0:
-              case -1:
-                return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
-                                          upper, upperType, this.comparator);
-            }
-            break;
+        if (comparator.compare(lower, (T) other.lowerBound())>=1) {
+          if (comparator.compare(upper, (T) other.upperBound()) >= 1) {
+            return Intervals.interval(lower, lowerType, (T) other.upperBound()
+                , other.upperBoundType(), this.comparator);
+          } else {
+            return Intervals.interval(lower, lowerType, upper, upperType, this.comparator);
+          }
+        }
+        else{
+          if (comparator.compare(upper, (T) other.upperBound())>=1) {
+            return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
+                                      (T) other.upperBound(), other.upperBoundType(),
+                                      this.comparator);
+          }
+          else{
+            return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
+                                      upper, upperType, this.comparator);
+          }
         }
       }
     }
     if (lowerType == BoundType.Open) {
       if (upperType == BoundType.Closed) {
-        switch (comparator.compare(lower, (T) other.lowerBound())) {
-          case 1:
-          case 0:
-            switch (comparator.compare(upper, (T) other.upperBound())) {
-              case 1:
-              case 0:
-                return Intervals.interval(lower, lowerType, (T) other.upperBound()
-                    , other.upperBoundType(), this.comparator);
-              case -1:
-                return Intervals.interval(lower, lowerType, upper, upperType, this.comparator);
-            }
-            break;
-          case -1:
-            switch (comparator.compare(upper, (T) other.upperBound())) {
-              case 1:
-              case 0:
-                return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
-                                          (T) other.upperBound(), other.upperBoundType(),
-                                          this.comparator);
-              case -1:
-                return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
-                                          upper, upperType, this.comparator);
-            }
-            break;
+        if (comparator.compare(lower, (T) other.lowerBound())>=0) {
+          if (comparator.compare(upper, (T) other.upperBound()) >= 0) {
+            return Intervals.interval(lower, lowerType, (T) other.upperBound()
+                , other.upperBoundType(), this.comparator);
+          } else {
+            return Intervals.interval(lower, lowerType, upper, upperType, this.comparator);
+          }
+        }
+        else {
+          if (comparator.compare(upper, (T) other.upperBound()) >= 0) {
+            return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
+                                      (T) other.upperBound(), other.upperBoundType(),
+                                      this.comparator);
+          } else {
+            return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
+                                      upper, upperType, this.comparator);
+          }
         }
       }
       if (upperType == BoundType.Open) {
-        switch (comparator.compare(lower, (T) other.lowerBound())) {
-          case 1:
-          case 0:
-            switch (comparator.compare(upper, (T) other.upperBound())) {
-              case 1:
-                return Intervals.interval(lower, lowerType, (T) other.upperBound()
-                    , other.upperBoundType(), this.comparator);
-              case -1:
-              case 0:
-                return Intervals.interval(lower, lowerType, upper, upperType, this.comparator);
-            }
-            break;
-          case -1:
-            switch (comparator.compare(upper, (T) other.upperBound())) {
-              case 1:
-
-                return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
-                                          (T) other.upperBound(), other.upperBoundType(),
-                                          this.comparator);
-              case 0:
-              case -1:
-                return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
-                                          upper, upperType, this.comparator);
-            }
-            break;
+        if (comparator.compare(lower, (T) other.lowerBound())>=0) {
+          if (comparator.compare(upper, (T) other.upperBound()) >= 1) {
+            return Intervals.interval(lower, lowerType, (T) other.upperBound()
+                , other.upperBoundType(), this.comparator);
+          } else {
+            return Intervals.interval(lower, lowerType, upper, upperType, this.comparator);
+          }
+        }
+        else{
+          if (comparator.compare(upper, (T) other.upperBound())>=1) {
+            return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
+                                      (T) other.upperBound(), other.upperBoundType(),
+                                      this.comparator);
+          }
+          else{
+            return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
+                                      upper, upperType, this.comparator);
+          }
         }
       }
     }
-    return new EmptyInterval();
+    return Intervals.empty();
   }
 
   @Override
@@ -343,113 +326,92 @@ public abstract class AbstractInterval<T> implements Interval {
 
     if (lowerType == BoundType.Closed) {
       if (upperType == BoundType.Closed) {
-        switch (comparator.compare(lower, (T) other.lowerBound())) {
-          case -1:
-          case 0:
-            switch (comparator.compare(upper, (T) other.upperBound())) {
-              case -1:
-                return Intervals.interval(lower, lowerType, (T) other.upperBound()
-                    , other.upperBoundType(), this.comparator);
-              case 1:
-              case 0:
-                return Intervals.interval(lower, lowerType, upper, upperType, this.comparator);
-            }
-            break;
-          case 1:
-            switch (comparator.compare(upper, (T) other.upperBound())) {
-              case -1:
-                return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
-                                          (T) other.upperBound(), other.upperBoundType(),
-                                          this.comparator);
-              case 1:
-              case 0:
-                return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
-                                          upper, upperType, this.comparator);
-            }
-            break;
+        if (comparator.compare(lower, (T) other.lowerBound())<=0) {
+          if (comparator.compare(upper, (T) other.upperBound())<=-1) {
+            return Intervals.interval(lower, lowerType, (T) other.upperBound()
+                , other.upperBoundType(), this.comparator);
+          }
+          else{
+              return Intervals.interval(lower, lowerType, upper, upperType, this.comparator);
+          }
+        }
+        else{
+          if (comparator.compare(upper, (T) other.upperBound())<=-1) {
+            return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
+                                      (T) other.upperBound(), other.upperBoundType(),
+                                      this.comparator);
+          }
+          else{
+            return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
+                                      upper, upperType, this.comparator);
+          }
         }
       }
       if (upperType == BoundType.Open) {
-        switch (comparator.compare(lower, (T) other.lowerBound())) {
-          case -1:
-          case 0:
-            switch (comparator.compare(upper, (T) other.upperBound())) {
-              case -1:
-              case 0:
-                return Intervals.interval(lower, lowerType, (T) other.upperBound()
-                    , other.upperBoundType(), this.comparator);
-              case 1:
-                return Intervals.interval(lower, lowerType, upper, upperType, this.comparator);
-            }
-            break;
-          case 1:
-            switch (comparator.compare(upper, (T) other.upperBound())) {
-              case -1:
-              case 0:
-                return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
-                                          (T) other.upperBound(), other.upperBoundType(),
-                                          this.comparator);
-              case 1:
-                return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
-                                          upper, upperType, this.comparator);
-            }
-            break;
+        if (comparator.compare(lower, (T) other.lowerBound())<=0) {
+          if (comparator.compare(upper, (T) other.upperBound())<=0) {
+            return Intervals.interval(lower, lowerType, (T) other.upperBound()
+                , other.upperBoundType(), this.comparator);
+          }
+          else{
+              return Intervals.interval(lower, lowerType, upper, upperType, this.comparator);
+          }
+        }
+        else{
+          if (comparator.compare(upper, (T) other.upperBound())<=0) {
+            return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
+                                      (T) other.upperBound(), other.upperBoundType(),
+                                      this.comparator);
+          }
+          else{
+            return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
+                                      upper, upperType, this.comparator);
+          }
         }
       }
     }
     if (lowerType == BoundType.Open) {
       if (upperType == BoundType.Closed) {
-        switch (comparator.compare(lower, (T) other.lowerBound())) {
-          case -1:
-            switch (comparator.compare(upper, (T) other.upperBound())) {
-              case -1:
-                return Intervals.interval(lower, lowerType, (T) other.upperBound()
-                    , other.upperBoundType(), this.comparator);
-              case 1:
-              case 0:
-                return Intervals.interval(lower, lowerType, upper, upperType, this.comparator);
-            }
-            break;
-          case 1:
-          case 0:
-            switch (comparator.compare(upper, (T) other.upperBound())) {
-              case -1:
-                return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
-                                          (T) other.upperBound(), other.upperBoundType(),
-                                          this.comparator);
-              case 1:
-              case 0:
-                return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
-                                          upper, upperType, this.comparator);
-            }
-            break;
+        if (comparator.compare(lower, (T) other.lowerBound())<=-1) {
+          if (comparator.compare(upper, (T) other.upperBound())<=-1) {
+            return Intervals.interval(lower, lowerType, (T) other.upperBound()
+                , other.upperBoundType(), this.comparator);
+          }
+          else{
+              return Intervals.interval(lower, lowerType, upper, upperType, this.comparator);
+          }
+        }
+        else{
+          if (comparator.compare(upper, (T) other.upperBound())<=-1) {
+            return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
+                                      (T) other.upperBound(), other.upperBoundType(),
+                                      this.comparator);
+          }
+          else{
+            return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
+                                      upper, upperType, this.comparator);
+          }
         }
       }
       if (upperType == BoundType.Open) {
-        switch (comparator.compare(lower, (T) other.lowerBound())) {
-          case -1:
-            switch (comparator.compare(upper, (T) other.upperBound())) {
-              case -1:
-              case 0:
-                return Intervals.interval(lower, lowerType, (T) other.upperBound()
-                    , other.upperBoundType(), this.comparator);
-              case 1:
-                return Intervals.interval(lower, lowerType, upper, upperType, this.comparator);
-            }
-            break;
-          case 1:
-          case 0:
-            switch (comparator.compare(upper, (T) other.upperBound())) {
-              case -1:
-              case 0:
-                return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
-                                          (T) other.upperBound(), other.upperBoundType(),
-                                          this.comparator);
-              case 1:
-                return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
-                                          upper, upperType, this.comparator);
-            }
-            break;
+        if (comparator.compare(lower, (T) other.lowerBound())<= -1) {
+          if (comparator.compare(upper, (T) other.upperBound()) <= 0) {
+            return Intervals.interval(lower, lowerType, (T) other.upperBound()
+                , other.upperBoundType(), this.comparator);
+          } else {
+            return Intervals.interval(lower, lowerType, upper, upperType, this.comparator);
+          }
+        }
+        else{
+          if (comparator.compare(upper, (T) other.upperBound())<=0) {
+            return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
+                                      (T) other.upperBound(), other.upperBoundType(),
+                                      this.comparator);
+          }
+          else{
+              return Intervals.interval((T) other.lowerBound(), other.lowerBoundType(),
+                                        upper, upperType, this.comparator);
+          }
         }
       }
     }
