@@ -2,10 +2,6 @@ import java.util.Comparator;
 
 public class OpenInterval<T> extends AbstractInterval{
 
-  private T lowerBound;
-  private T upperBound;
-  private Comparator<T> comparator;
-
   public OpenInterval(T lower, T upper){
     super(lower,upper);
 

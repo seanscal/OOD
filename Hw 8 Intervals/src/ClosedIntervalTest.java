@@ -8,6 +8,14 @@ public class ClosedIntervalTest<T> {
 
   Integer ten = new Integer(10);
 
+  Integer one = new Integer(1);
+  Integer two = new Integer(2);
+  Integer fourteen = new Integer(14);
+  Integer fifteen = new Integer(15);
+  OpenClosedInterval OCsame= new OpenClosedInterval<Integer>(1,15);
+  ClosedOpenInterval COsame= new ClosedOpenInterval<Integer>(1,15);
+  ClosedInterval Csame = new ClosedInterval<Integer>(1,15);
+  OpenInterval Osame = new OpenInterval<Integer>(1,15);
 
   OpenClosedInterval OC= new OpenClosedInterval<Integer>(1,20);
   ClosedOpenInterval CO= new ClosedOpenInterval<Integer>(7,18);
@@ -99,19 +107,53 @@ public class ClosedIntervalTest<T> {
     OpenClosedInterval X = new OpenClosedInterval<String>("zevra","aminal");
   }
 
-//
-//  @Test
-//  public void testIntersection() throws Exception {
-//
-//  }
+  @Test
+  public void testGetComparator(){
+    assertEquals(backwards.getComparator(),Comparator.reverseOrder());
+  }
+
+  @Test
+  public void testEdges() throws Exception {
+    assertFalse(OCsame.contains(one));
+    assertTrue(OCsame.contains(two));
+    assertTrue(COsame.contains(one));
+    assertTrue(Csame.contains(one));
+    assertFalse(Osame.contains(one));
+    assertTrue(Osame.contains(two));
+
+    assertTrue(OCsame.contains(fifteen));
+    assertFalse(COsame.contains(fifteen));
+    assertTrue(COsame.contains(fourteen));
+    assertTrue(Csame.contains(fifteen));
+    assertFalse(Osame.contains(fifteen));
+    assertTrue(Osame.contains(fourteen));
+
+    assertTrue(COsame.includes(Osame));
+    assertTrue(Csame.includes(Osame));
+    assertTrue(OCsame.includes(Osame));
+    assertTrue(Osame.includes(Osame));
+
+    assertFalse(COsame.includes(OCsame));
+    assertTrue(Csame.includes(OCsame));
+    assertTrue(OCsame.includes(OCsame));
+    assertFalse(Osame.includes(OCsame));
+
+    assertFalse(COsame.includes(Csame));
+    assertTrue(Csame.includes(Csame));
+    assertFalse(OCsame.includes(Csame));
+    assertFalse(Osame.includes(Csame));
+
+    assertTrue(COsame.includes(COsame));
+    assertTrue(Csame.includes(COsame));
+    assertFalse(OCsame.includes(COsame));
+    assertFalse(Osame.includes(COsame));
+
+    assertFalse(Csame.includes(OC));
+  }
 //
 //  @Test
 //  public void testSpan() throws Exception {
 //
 //  }
 //
-//  @Test
-//  public void testGetComparator() throws Exception {
-//
-//  }
 }
