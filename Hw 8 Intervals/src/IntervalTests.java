@@ -219,12 +219,12 @@ public class IntervalTests<T> {
   }
 
 
-  @Test(expected = java.lang.IndexOutOfBoundsException.class)
+  @Test(expected = java.lang.IllegalArgumentException.class)
   public void testLowerGreater() throws Exception {
     OpenClosedInterval X = new OpenClosedInterval<Integer>(21,20);
   }
 
-  @Test(expected = java.lang.IndexOutOfBoundsException.class)
+  @Test(expected = java.lang.IllegalArgumentException.class)
   public void testLowerGreaterString() throws Exception {
     OpenClosedInterval X = new OpenClosedInterval<String>("zebra","animal");
   }
@@ -237,6 +237,11 @@ public class IntervalTests<T> {
   @Test(expected = java.lang.IllegalStateException.class)
   public void testEmptyUpper() throws Exception {
     assertEquals(empty.upperBound(),'s');
+  }
+
+  @Test(expected = java.lang.NullPointerException.class)
+  public void testNull() throws Exception {
+    OpenClosedInterval X = new OpenClosedInterval<String>(null,null);
   }
 
 
@@ -339,6 +344,9 @@ public class IntervalTests<T> {
 
   @Test
   public void testToString() throws Exception {
-    assertEquals("Interval is [7,15)",intersectionClosedOpen.toString());
+    assertEquals("Interval is [1,15]",Csame.toString());
+    assertEquals("Interval is (1,15]",OCsame.toString());
+    assertEquals("Interval is [1,15)",COsame.toString());
+    assertEquals("Interval is (1,15)",Osame.toString());
   }
 }

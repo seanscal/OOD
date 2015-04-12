@@ -46,7 +46,7 @@ public abstract class AbstractInterval<T> implements Interval {
       throw new NullPointerException("No values can be null");
     }
     if (comparator.compare(lowerBound,upperBound) > 0){
-      throw new IndexOutOfBoundsException("Lower Bound greater than upper");
+      throw new IllegalArgumentException("Lower Bound greater than upper");
     }
     if(lower.getClass() != upper.getClass()){
       throw new WrongMethodTypeException("not the same class");
@@ -61,7 +61,7 @@ public abstract class AbstractInterval<T> implements Interval {
       throw new NullPointerException("No values can be null");
     }
     if (comparator.compare(lowerBound,upperBound) > 0){
-      throw new IndexOutOfBoundsException("Lower Bound greater than upper");
+      throw new IllegalArgumentException("Lower Bound greater than upper");
     }
     if(lower.getClass() != upper.getClass()){
       throw new WrongMethodTypeException("not the same class");
