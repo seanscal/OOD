@@ -13,7 +13,7 @@ public class Intervals<T> extends Object{
   static <T extends Comparable<T>> Interval<T> closedOpen(T lower, T upper){
     Comparator<T> comp = Comparator.naturalOrder();
     if (comp.compare(lower,upper) == 0){
-      return new EmptyInterval<>();
+      return new EmptyInterval<T>();
     }
     return new ClosedOpenInterval<T>(lower,upper);
   }
@@ -21,17 +21,17 @@ public class Intervals<T> extends Object{
   static <T> Interval<T> closedOpen(T lower, T upper, Comparator<T> comparator){
     Comparator<T> comp = (Comparator<T>) Comparator.naturalOrder();
     if (comp.compare(lower,upper) == 0){
-      return new EmptyInterval<>(comparator);
+      return new EmptyInterval<T>(comparator);
     }
     return new ClosedOpenInterval<T>(lower,upper, comparator);
   }
 
   static <T extends Comparable<T>> Interval<T> empty(){
-    return new EmptyInterval<>();
+    return new EmptyInterval<T>();
   }
 
   static <T extends Comparable<T>> Interval<T> empty(Comparator<T> comparator){
-    return new EmptyInterval<>(comparator);
+    return new EmptyInterval<T>(comparator);
   }
 
   static <T extends Comparable<T>> Interval<T> interval(T lower, BoundType lowerType, T upper,
@@ -45,7 +45,7 @@ public class Intervals<T> extends Object{
       }
       else if(upperType==BoundType.Open){
         if (comp.compare(upper,lower)==0){
-          x = new EmptyInterval<>();
+          x = new EmptyInterval<T>();
         }
         else{
         x = new ClosedOpenInterval<T>(lower,upper);
@@ -55,7 +55,7 @@ public class Intervals<T> extends Object{
     else if (lowerType==BoundType.Open){
       if(upperType == BoundType.Closed) {
         if (comp.compare(upper, lower) == 0) {
-          x = new EmptyInterval<>();
+          x = new EmptyInterval<T>();
         }
         else {
           x = new OpenClosedInterval<T>(lower, upper);
@@ -80,7 +80,7 @@ public class Intervals<T> extends Object{
       }
       else if(upperType==BoundType.Open){
         if (comp.compare(upper, lower) == 0) {
-          x = new EmptyInterval<>(comparator);
+          x = new EmptyInterval<T>(comparator);
         }
         else {
           x = new ClosedOpenInterval<T>(lower, upper, comparator);
@@ -90,7 +90,7 @@ public class Intervals<T> extends Object{
     else if (lowerType==BoundType.Open){
       if(upperType == BoundType.Closed){
         if (comp.compare(upper, lower) == 0) {
-          x = new EmptyInterval<>(comparator);
+          x = new EmptyInterval<T>(comparator);
         }
         else {
           x = new OpenClosedInterval<T>(lower, upper,comparator);
@@ -115,7 +115,7 @@ public class Intervals<T> extends Object{
   static <T extends Comparable<T>> Interval<T> openClosed(T lower, T upper){
     Comparator<T> comp = Comparator.naturalOrder();
     if (comp.compare(lower,upper) == 0){
-      return new EmptyInterval<>();
+      return new EmptyInterval<T>();
     }
     return new OpenClosedInterval<T>(lower,upper);
   }
@@ -123,7 +123,7 @@ public class Intervals<T> extends Object{
   static <T> Interval<T> openClosed(T lower, T upper, Comparator<T> comparator){
     Comparator<T> comp = (Comparator<T>) Comparator.naturalOrder();
     if (comp.compare(lower,upper) == 0){
-      return new EmptyInterval<>(comparator);
+      return new EmptyInterval<T>(comparator);
     }
     return new OpenClosedInterval<T>(lower,upper,comparator);
   }
