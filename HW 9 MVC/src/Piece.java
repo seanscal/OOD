@@ -49,7 +49,7 @@ public enum Piece {
   }
 
   /**
-   * Returns the player whose piece this is.
+   * Returns the player whose piece this is
    *
    * @return the player
    */

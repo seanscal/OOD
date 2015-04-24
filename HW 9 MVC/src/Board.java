@@ -88,59 +88,28 @@ public class Board {
   }
 
   boolean hasMove(int x, int y) {
+    Position pos = Position.fromRowColumn(x, y);
+    Stream<Position> adjacentPositions = pos.adjacentPositions();
+    Set<Position> posSet = adjacentPositions.collect(Collectors.toSet());
     Check c = getCheck(x, y);
+
     if (c.isEmpty()) {
       throw new IllegalArgumentException("an empty spot has no moves");
     }
-
-    if (c.getPiece() == Piece.NormalFirst) {
-      if (c.x > 0 && c.x < dimension && c.y > 0) {
-
-        return (getCheck(x - 1, y - 1).isEmpty()) ||
-               (getCheck(x + 1, y - 1).isEmpty());
-      } else if (c.x == 0 && c.y > 0) {
-        return (getCheck(x + 1, y - 1).isEmpty());
-      } else if (c.x == dimension && c.y > 0) {
-        return (getCheck(x - 1, y - 1).isEmpty());
-      } else {
-        return false;
+    for(Position moveTo: posSet) {
+      Check movePositionCheck = new Check(moveTo.row(),moveTo.column());
+      if (movePositionCheck.isEmpty()){
+        if (((moveTo.isAbove(pos) && c.getPiece().player() == Player.First) ||
+             (moveTo.isBelow(pos) && c.getPiece().player() == Player.Second)) ||
+            c.getPiece().isCrowned())
+        {
+          return true;
+        }
       }
-    } else if (c.getPiece() == Piece.CrownedFirst || c.getPiece() == Piece.CrownedSecond) {
-      if (c.x > 0 && c.x < dimension && c.y > 0 && c.y < dimension) {
-        return (getCheck(x - 1, y - 1).isEmpty()) ||
-               (getCheck(x + 1, y - 1).isEmpty()) ||
-               (getCheck(x - 1, y + 1).isEmpty()) ||
-               (getCheck(x + 1, y + 1).isEmpty());
-      } else if (c.x == 0 && c.y > 0 && c.y < dimension) {
-        return (getCheck(x + 1, y - 1).isEmpty()) ||
-               (getCheck(x + 1, y + 1).isEmpty());
-      } else if (c.x == 0 && c.y == 0) {
-        return (getCheck(x + 1, y + 1).isEmpty());
-      } else if (c.x == dimension && c.y > 0 && c.y < dimension) {
-        return (getCheck(x - 1, y - 1).isEmpty()) ||
-               (getCheck(x - 1, y + 1).isEmpty());
-      } else if (c.x == dimension && c.y == 0) {
-        return (getCheck(x - 1, y + 1).isEmpty());
-      } else if (c.x == dimension && c.y == dimension) {
-        return (getCheck(x - 1, y - 1).isEmpty());
-      } else {
-        return false;
-      }
-    } else if (c.getPiece() == Piece.NormalSecond) {
-      if (c.x > 0 && c.x < dimension && c.y < dimension) {
-        return (getCheck(x - 1, y + 1).isEmpty()) ||
-               (getCheck(x + 1, y + 1).isEmpty());
-      } else if (c.x == 0 && c.y < dimension) {
-        return (getCheck(x + 1, y + 1).isEmpty());
-      } else if (c.x == dimension && c.y < dimension) {
-        return (getCheck(x - 1, y + 1).isEmpty());
-      } else {
-        return false;
-      }
-    } else {
-      return false;
     }
+    return false;
   }
+
 
   boolean mustMove(int x, int y) {
     Check c = getCheck(x, y);
@@ -150,10 +119,7 @@ public class Board {
 
     Position pos = Position.fromRowColumn(x, y);
     Stream<Position> jumpPositions = pos.jumpAdjacentPositions();
-    Stream<Position> adjacentPositions = pos.adjacentPositions();
-    Set<Position> posSet = adjacentPositions.collect(Collectors.toSet());
     Set<Position> jumpPosSet = jumpPositions.collect(Collectors.toSet());
-    ArrayList<Position> returnable = new ArrayList<>();
 
     for (Position p : jumpPosSet) {
       Check checkJump = new Check(p.row(), p.column());
