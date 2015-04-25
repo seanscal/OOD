@@ -11,9 +11,25 @@ public final class ReadOnlyBoardView implements ReadOnlyBoardViewModel {
   @Override
   public String get(int row, int column, int width) {
     Check c = model.getCheckAt(row, column);
+
+    for (Check check : model.movablePieces()){
+      if (check.isSelected){
+        int g = 0;
+        Position p = Position.fromRowColumn(row, column);
+        int count = 0;
+        for(Position move : c.moves()){
+          if (p == move){
+            count++;
+            return "[" + count + "]";
+          }
+        }
+      }
+    }
+
     if (c.isSelected) {
       return "<" + c.getText() + ">";
-    } else if (model.movablePieces().contains(c)) {
+    }
+    else if (model.movablePieces().contains(c)) {
       int moveNum = 1 + model.movablePieces().indexOf(c);
       if (c.getPiece().isCrowned()) {
         return "[[" + Integer.toString(moveNum) + "]]";

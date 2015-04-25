@@ -11,14 +11,14 @@ public class Board {
   // constructor that makes a board based on the dimensions
   Board(int dimension) {
     ArrayList<ArrayList<Check>> temp = new ArrayList<ArrayList<Check>>();
-    int emptyrows = (dimension / 4);                              //2
-    int placeoffset = ((dimension - emptyrows) / 2) + emptyrows;  //5
+    int emptyrows = (dimension / 4);
+    int placeoffset = ((dimension - emptyrows) / 2) + emptyrows;
     for (int y = 0; y < dimension; y++) {
       ArrayList<Check> row = new ArrayList<Check>();
       for (int x = 0; x < dimension; x++) {
-        if ((y < (dimension - placeoffset)) && Util.placePiece(x, y)) {
+        if ((y < (dimension - placeoffset)) && Util.placePiece(y,x)) {
           row.add(new Check(Piece.NormalSecond, x, y));
-        } else if ((y >= placeoffset) && Util.placePiece(x, y)) {
+        } else if ((y >= placeoffset) && Util.placePiece(y,x)) {
           row.add(new Check(Piece.NormalFirst, x, y));
         } else {
           row.add(new Check(x, y));
@@ -35,9 +35,7 @@ public class Board {
     if (x < 0 || x > dimension || y < 0 || y > dimension) {
       throw new IndexOutOfBoundsException("that is not a space on the board");
     }
-
-    int bsize = board.size();
-    int z = 6;
+    
     return board.get(y).get(x);
   }
 
@@ -102,7 +100,7 @@ public class Board {
       throw new IllegalArgumentException("an empty spot has no moves");
     }
     for(Position moveTo: posSet) {
-      Check movePositionCheck = new Check(moveTo.row(),moveTo.column());
+      Check movePositionCheck = board.get(moveTo.column()).get(moveTo.row());
       if (movePositionCheck.isEmpty()){
         if (((moveTo.isAbove(pos) && c.getPiece().player() == Player.First) ||
              (moveTo.isBelow(pos) && c.getPiece().player() == Player.Second)) ||
@@ -127,10 +125,10 @@ public class Board {
     Set<Position> jumpPosSet = jumpPositions.collect(Collectors.toSet());
 
     for (Position p : jumpPosSet) {
-      Check checkJump = new Check(p.row(), p.column());
+      Check checkJump = board.get(p.row()).get(p.column());
       if (checkJump.isEmpty()) {
         Position jumpedPosition = pos.findJumpedPosition(p);
-        Check jumpedPositionCheck = new Check(jumpedPosition.row(), jumpedPosition.column());
+        Check jumpedPositionCheck = board.get(jumpedPosition.row()).get(jumpedPosition.column());
 
         if (!jumpedPositionCheck.isEmpty() &&
             jumpedPositionCheck.getPiece().player() != c.getPiece().player() &&
