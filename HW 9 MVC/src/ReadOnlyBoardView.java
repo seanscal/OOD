@@ -1,4 +1,6 @@
 import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
 
 public final class ReadOnlyBoardView implements ReadOnlyBoardViewModel {
   Model model;
@@ -8,7 +10,19 @@ public final class ReadOnlyBoardView implements ReadOnlyBoardViewModel {
 
   @Override
   public String get(int row, int column, int width) {
-    return model.getCheckAt(row, column).getText();
+    Check c = model.getCheckAt(row, column);
+    if (c.isSelected) {
+      return "<" + c.getText() + ">";
+    } else if (model.movablePieces().contains(c)) {
+      int moveNum = 1 + model.movablePieces().indexOf(c);
+      if (c.getPiece().isCrowned()) {
+        return "[[" + Integer.toString(moveNum) + "]]";
+      } else {
+        return "[" + Integer.toString(moveNum) + "]";
+      }
+    } else {
+      return model.getCheckAt(row, column).getText();
+    }
   }
 
   @Override
@@ -19,11 +33,25 @@ public final class ReadOnlyBoardView implements ReadOnlyBoardViewModel {
 
   @Override
   public Iterator<Integer> rows() {
-    return null;
+    Board b= new Board(8);
+    Set<Integer> set = new TreeSet<Integer>();
+
+
+    for (int x = 0; x < b.dimension; x++){
+      set.add(x);
+    }
+    return set.iterator();
   }
 
   @Override
   public Iterator<Integer> columns() {
-    return null;
+    Board b= new Board(8);
+    Set<Integer> set = new TreeSet<Integer>();
+
+    for (int x = 0; x < b.dimension; x++){
+      set.add(x);
+    }
+    Iterator<Integer> f = set.iterator();
+    return set.iterator();
   }
 }

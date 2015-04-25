@@ -13,7 +13,7 @@ import java.util.Iterator;
  * interface, from the view, in which the lower-level details of rendering
  * are thus isolated.
  */
-public interface ReadOnlyBoardViewModel {
+public interface  ReadOnlyBoardViewModel {
   /**
    * Returns the text to display in the board square for the given row and
    * column. The third parameter, {@code width}, specifies how wide the

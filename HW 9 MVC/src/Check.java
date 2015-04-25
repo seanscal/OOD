@@ -3,12 +3,14 @@ public class Check {
   int y;
   Piece piece;
   boolean isEmpty;
+  boolean isSelected;
 
   Check(Piece p, int xx, int yy) {
     piece = p;
     x = xx;
     y = yy;
     isEmpty = false;
+    isSelected = false;
   }
 
   Check(int xx, int yy) {
@@ -16,6 +18,7 @@ public class Check {
     x = xx;
     y = yy;
     isEmpty = true;
+    isSelected = false;
   }
 
   boolean isEmpty() {

@@ -11,21 +11,23 @@ public class Board {
   // constructor that makes a board based on the dimensions
   Board(int dimension) {
     ArrayList<ArrayList<Check>> temp = new ArrayList<ArrayList<Check>>();
-    int emptyrows = (dimension / 4);
-    int placeoffset = ((dimension - emptyrows) / 2) + emptyrows;
+    int emptyrows = (dimension / 4);                              //2
+    int placeoffset = ((dimension - emptyrows) / 2) + emptyrows;  //5
     for (int y = 0; y < dimension; y++) {
       ArrayList<Check> row = new ArrayList<Check>();
       for (int x = 0; x < dimension; x++) {
-        if ((y < (dimension - placeoffset)) && Util.placePiece(y, x)) {
+        if ((y < (dimension - placeoffset)) && Util.placePiece(x, y)) {
           row.add(new Check(Piece.NormalSecond, x, y));
-        } else if ((y >= placeoffset) && Util.placePiece(y, x)) {
+        } else if ((y >= placeoffset) && Util.placePiece(x, y)) {
           row.add(new Check(Piece.NormalFirst, x, y));
         } else {
           row.add(new Check(x, y));
         }
       }
+      temp.add(row);
     }
     this.board = temp;
+
     this.dimension = dimension;
   }
 
@@ -33,6 +35,9 @@ public class Board {
     if (x < 0 || x > dimension || y < 0 || y > dimension) {
       throw new IndexOutOfBoundsException("that is not a space on the board");
     }
+
+    int bsize = board.size();
+    int z = 6;
     return board.get(y).get(x);
   }
 

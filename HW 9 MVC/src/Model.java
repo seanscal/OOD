@@ -15,6 +15,26 @@ public class Model {
     this.turn = Player.First;
   }
 
+  public static final class Builder {
+
+    public Model build() {
+      return new Model(8);
+    }
+
+    public Model build(int size) {
+      return new Model(size);
+    }
+
+  }
+
+  static Model checkers() {
+    return builder().build();
+  }
+
+  static Builder builder() {
+    return new Builder();
+  }
+
   int getWidth() {
     return size;
   }
@@ -55,10 +75,8 @@ public class Model {
       if (status != Status.Playing) {
         throw new IllegalStateException("game over");
       }
-
       if (who != turn) {
         throw new IllegalStateException("out of turn");
-
   */
   ArrayList<Check> movablePieces() {
     ArrayList<Check> worklist = board.getPlayersPieces(turn);
@@ -86,7 +104,7 @@ public class Model {
     if (turn != first.piece.player()) {
       throw new IllegalArgumentException("it's not your turn!");
     }
-    if (!(Util.inCheckList(movablePieces(), first))) {
+    if (!(movablePieces().contains(first))) {
       throw new IllegalArgumentException("this piece has no moves to make");
     }
     board.move(fx, fy, sx, sy);
@@ -111,7 +129,7 @@ public class Model {
   }
 
   public Check getCheckAt(int x, int y) {
-   return board.getCheck(x, y);
+    return board.getCheck(x, y);
   }
 
 }
