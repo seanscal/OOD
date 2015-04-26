@@ -15,14 +15,23 @@ public class Util {
     }
   }
 
+  public static ArrayList<Check> reverse(ArrayList<Check> list) {
+    ArrayList<Check> returnable = new ArrayList<>();
+    for(int i = list.size() - 1; i >= 0; i--) {
+      returnable.add(list.get(i));
+    }
+    return returnable;
+  }
+  /*
   public static boolean inCheckList(ArrayList<Check> list, Check c) {
     boolean answer = false;
     for(int i = 0; i < list.size(); i++) {
-      if(list.get(0).equals(c)) {
+      if(list.get(i).equals(c)) {
         answer = true;
       }
     }
     return answer;
   }
+  */
 
 }

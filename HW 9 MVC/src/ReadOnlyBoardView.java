@@ -7,16 +7,22 @@ public class ReadOnlyBoardView implements ReadOnlyBoardViewModel {
   Model model;
   Check selected;
   Boolean isSelected;
+  Player turn;
 
-  ReadOnlyBoardView(Model m, Check sel, Boolean is) {
+  ReadOnlyBoardView(Model m, Check sel, Boolean is, Player t) {
     model = m;
     selected = sel;
     isSelected = is;
+    turn = t;
   }
 
   @Override
   public String get(int row, int column, int width) {
     Check c = model.getCheckAt(row, column);
+
+    if(turn == Player.Second) {
+      c = model.getCheckAt(7 - row, 7 - column);
+    }
 
     if (isSelected) {
       if (c.equals(selected)) {

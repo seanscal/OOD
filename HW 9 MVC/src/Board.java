@@ -145,21 +145,10 @@ public class Board {
     Set<Position> jumpPosSet = jumpPositions.collect(Collectors.toSet());
 
     for (Position p : jumpPosSet) {
-      int row = p.row();
-      int col = p.column();
-      int xer = c.x;
-      int yer = c.y;
       Check checkJump = board.get(p.column()).get(p.row());
       if (checkJump.isEmpty()) {
         Position jumpedPosition = pos.findJumpedPosition(p);
         Check jumpedPositionCheck = board.get(jumpedPosition.column()).get(jumpedPosition.row());
-        boolean empt = jumpedPositionCheck.isEmpty();
-        if (!jumpedPositionCheck.isEmpty()) {
-          Player q = jumpedPositionCheck.getPiece().player();
-        }
-        Player z = c.getPiece().player();
-        boolean r = p.isAbove(jumpedPosition);
-
         if (!jumpedPositionCheck.isEmpty()) {
           if (jumpedPositionCheck.getPiece().player() != c.getPiece().player()) {
             if (c.getPiece().isCrowned()) {
@@ -179,6 +168,7 @@ public class Board {
   }
 
   ArrayList<Check> moves (Check xy) {
+
     int x = xy.x;
     int y = xy.y;
     Position pos =  Position.fromRowColumn(x, y);

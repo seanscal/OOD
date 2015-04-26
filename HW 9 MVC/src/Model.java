@@ -50,13 +50,7 @@ public class Model {
   }
 
   boolean isGameOver() {
-    if (board.getPlayersPieces(Player.First).size() != 0 &&
-        board.getPlayersPieces(Player.Second).size()!= 0) {
-      return false;
-    }
-    else {
-      return true;
-    }
+    return checkForWinner();
   }
 
   Player getNextPlayer() {
@@ -74,14 +68,6 @@ public class Model {
     return turn;
   }
 
-  /*
-    public int move(Player who, int where) {
-      if (status != Status.Playing) {
-        throw new IllegalStateException("game over");
-      }
-      if (who != turn) {
-        throw new IllegalStateException("out of turn");
-  */
   ArrayList<Check> movablePieces() {
     ArrayList<Check> worklist = board.getPlayersPieces(turn);
     ArrayList<Check> temp = new ArrayList<Check>();
@@ -98,6 +84,10 @@ public class Model {
     if (havetomove.size() != 0){
       return havetomove;
     }
+
+    if (turn == Player.Second) {
+      temp = Util.reverse(temp);
+    }
     return temp;
   }
 
@@ -109,10 +99,24 @@ public class Model {
     if (!(movablePieces().contains(first))) {
       throw new IllegalArgumentException("this piece has no moves to make");
     }
+    Check orig = board.getCheck(fx,fy);
+    boolean crownedOrig = orig.getPiece().isCrowned();
+
     board.move(fx, fy, sx, sy);
-    if (!board.mustMove(sx,sy)) {
-      turn = turn.other();
+
+    Check moved = board.getCheck(sx,sy);
+    boolean crownedNew = moved.getPiece().isCrowned();
+    Position jump = Position.fromRowColumn(sx,sy);
+    Position start = Position.fromRowColumn(fx,fy);
+
+    if (crownedNew == crownedOrig) {
+      if (isGameOver()) {
+        return;
+      } else if (start.isJumpAdjacentTo(jump) && board.mustMove(sx, sy)) {
+        return;
+      }
     }
+    turn = turn.other();
   }
 
   private boolean checkForWinner() {

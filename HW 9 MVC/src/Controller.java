@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public final class Controller {
@@ -8,6 +9,7 @@ public final class Controller {
   private final BoardView view;
   private final IntReader in;
   private final Appendable out;
+  private ArrayList<Check> moves;
   public static final String ERROR =
       "error";
 
@@ -36,7 +38,7 @@ public final class Controller {
     this.view = view;
     this.in = in;
     this.out = out;
-    //this.bv = new ReadOnlyBoardView(model);
+    this.moves = new ArrayList<Check>();
   }
 
   public boolean isGameOver() {
@@ -62,13 +64,14 @@ public final class Controller {
 
 
   public void step() throws IOException {
-    ReadOnlyBoardViewModel bv = new ReadOnlyBoardView(model, new Check(0, 0), false);
+    ReadOnlyBoardViewModel bv = new ReadOnlyBoardView(model, new Check(0, 0), false, model.turn);
     view.draw(bv);
     Player who = model.getNextPlayer();
     String playerstr = "[" + Character.toString(who.toChar()) + "]";
     String message = " Choose a piece to move: ";
     int what = in.nextInt(playerstr + message, this::validateMovable);
     Check c = model.movablePieces().get(what - 1);
+    this.moves = model.board.moves(c);
     //c.isSelected = true;
     //c.changeSelected(c, true);
     //model.selected = c;
@@ -80,15 +83,10 @@ public final class Controller {
 
   public void step2(int piece) throws IOException {
     Check c = model.movablePieces().get(piece - 1);
-    System.out.println("c x and y is " + Integer.toString(c.x) + " " + Integer.toString(c.y));
-    System.out.println(model.board.moves(c));
-    ReadOnlyBoardViewModel bv = new ReadOnlyBoardView(model, c, true);
+    ReadOnlyBoardViewModel bv = new ReadOnlyBoardView(model, c, true, model.turn);
     view.draw(bv);
 
 
-    //c.isSelected = false;
-    //c.changeSelected(c, false);
-   //model.selected = null;
     Player who = model.getNextPlayer();
     String playerstr = "[" + Character.toString(who.toChar()) + "]";
     String message = " Choose where to move to: ";
@@ -100,7 +98,6 @@ public final class Controller {
       String winstring = "";
       // do something here, display winner or whatever, haven't taken the time to
       // finish one of his games yet
-      view.draw(bv);
       if (model.getWinner().toChar() == '+'){
         winstring = "First Player";
       }
@@ -110,6 +107,7 @@ public final class Controller {
       String winner = winstring + "(" + Character.toString(model.getWinner().toChar()) + ")";
       String winMessage = " is the winner";
       out.append(winner).append(winMessage);
+      view.draw(bv);
     }
   }
 
@@ -125,10 +123,10 @@ public final class Controller {
   private String validateMove(int spacenumber) {
     System.out.println(spacenumber);
     Check c = model.movablePieces().get((spacenumber - 1));
-    //System.out.println(model.board.moves(c).size());
-    // need to write a method that returns an array of move options for a given check
-    if(c.x < 0|| c.x >= model.size || c.y < 0 || c.y >= model.size) {
-      return "You cannot move to that space";
+
+    if(spacenumber <= 0 || spacenumber > this.moves.size()) {
+      return "Not a valid choice. Please choose a number between 1 and " +
+             Integer.toString(this.moves.size()) + ".";
     }
 
     //It's valid!
