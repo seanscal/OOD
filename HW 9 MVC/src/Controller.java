@@ -8,7 +8,6 @@ public final class Controller {
   private final BoardView view;
   private final IntReader in;
   private final Appendable out;
-
   public static final String ERROR =
       "error";
 
@@ -63,30 +62,39 @@ public final class Controller {
 
 
   public void step() throws IOException {
-    ReadOnlyBoardViewModel bv = new ReadOnlyBoardView(model);
+    ReadOnlyBoardViewModel bv = new ReadOnlyBoardView(model, new Check(0, 0), false);
     view.draw(bv);
     Player who = model.getNextPlayer();
     String playerstr = "[" + Character.toString(who.toChar()) + "]";
-    String message = " Choose a piece to move:";
+    String message = " Choose a piece to move: ";
     int what = in.nextInt(playerstr + message, this::validateMovable);
     Check c = model.movablePieces().get(what - 1);
-    c.isSelected = true;
+    //c.isSelected = true;
+    //c.changeSelected(c, true);
+    //model.selected = c;
+    model.changeSelected(c);
+
     this.step2(what);
 
   }
 
   public void step2(int piece) throws IOException {
-    ReadOnlyBoardViewModel bv = new ReadOnlyBoardView(model);
+    Check c = model.movablePieces().get(piece - 1);
+    System.out.println("c x and y is " + Integer.toString(c.x) + Integer.toString(c.y));
+    System.out.println(model.board.moves(c));
+    ReadOnlyBoardViewModel bv = new ReadOnlyBoardView(model, c, true);
     view.draw(bv);
 
-    Check c = model.movablePieces().get(piece - 1);
-    c.isSelected = false;
+
+    //c.isSelected = false;
+    //c.changeSelected(c, false);
+   //model.selected = null;
     Player who = model.getNextPlayer();
     String playerstr = "[" + Character.toString(who.toChar()) + "]";
-    String message = " Choose where to move to:";
+    String message = " Choose where to move to: ";
     int where = in.nextInt(playerstr + message, this::validateMove);
-    Position moveIt = model.board.moves(c).get(where - 1);
-    model.move(c.x, c.y, moveIt.row(), moveIt.column());
+    Check moveIt = model.board.moves(c).get(where - 1);
+    model.move(c.x, c.y, moveIt.x, moveIt.y);
 
     if(model.isGameOver()) {
       // do something here, display winner or whatever, haven't taken the time to
@@ -108,8 +116,9 @@ public final class Controller {
   }
 
   private String validateMove(int spacenumber) {
+    Check c = model.movablePieces().get((spacenumber - 1));
     // need to write a method that returns an array of move options for a given check
-    if(spacenumber <= 0 || spacenumber > 5) {
+    if(spacenumber <= 0 || spacenumber > model.board.moves(c).size()) {
       return "You cannot move to that space";
     }
 

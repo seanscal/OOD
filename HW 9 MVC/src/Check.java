@@ -11,12 +11,12 @@ public class Check {
   boolean isSelected;
   Board board;
 
-  Check(Piece p, int xx, int yy) {
+  Check(Piece p, int xx, int yy, boolean selected) {
     piece = p;
     x = xx;
     y = yy;
     isEmpty = false;
-    isSelected = false;
+    isSelected = selected;
   }
 
   Check(int xx, int yy) {
@@ -64,11 +64,14 @@ public class Check {
 
   @Override
   public int hashCode() {
+    return this.x * 31 + this.y * 13;
+    /*
     int result = x;
     result = 31 * result + y;
     result = 31 * result + (piece != null ? piece.hashCode() : 0);
     result = 31 * result + (isEmpty ? 1 : 0);
     return result;
+    */
   }
 
   public String getText() {
@@ -128,5 +131,10 @@ public class Check {
       }
     }
     return returnable;
+  }
+
+  Check changeSelected(Check c, boolean status) {
+    //this.isSelected = status;
+    return new Check(c.piece, c.x, c.y, status);
   }
 }

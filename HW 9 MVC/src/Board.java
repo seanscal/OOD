@@ -13,15 +13,15 @@ public class Board {
     ArrayList<ArrayList<Check>> temp = new ArrayList<ArrayList<Check>>();
     int emptyrows = (dimension / 4);
     int placeoffset = ((dimension - emptyrows) / 2) + emptyrows;
-    for (int y = 0; y < dimension; y++) {
+    for (int x = 0; x < dimension; x++) {
       ArrayList<Check> row = new ArrayList<Check>();
-      for (int x = 0; x < dimension; x++) {
+      for (int y = 0; y < dimension; y++) {
         if ((y < (dimension - placeoffset)) && Util.placePiece(y,x)) {
-          row.add(new Check(Piece.NormalSecond, x, y));
-        } else if ((y >= placeoffset) && Util.placePiece(y,x)) {
-          row.add(new Check(Piece.NormalFirst, x, y));
+          row.add(new Check(Piece.NormalSecond, y, x, false));
+        } else if (y >= placeoffset && Util.placePiece(y,x)) {
+          row.add(new Check(Piece.NormalFirst, y, x, false));
         } else {
-          row.add(new Check(x, y));
+          row.add(new Check(y, x));
         }
       }
       temp.add(row);
@@ -35,15 +35,15 @@ public class Board {
     if (x < 0 || x > dimension || y < 0 || y > dimension) {
       throw new IndexOutOfBoundsException("that is not a space on the board");
     }
-    
+
     return board.get(y).get(x);
   }
 
   Check changeCheck(int x, int y, Piece p) {
     Check work = getCheck(x, y);
     if (p != work.piece) {
-      board.get(y).set(x, new Check(p, x, y));
-      return new Check(p, x, y);
+      board.get(y).set(x, new Check(p, x, y, false));
+      return new Check(p, x, y, false);
     } else {
       board.get(y).set(x, new Check(x, y));
       return new Check(x, y);
@@ -143,56 +143,56 @@ public class Board {
     return false;
   }
 
-  ArrayList<Position> moves (Check xy) {
-     int x = xy.x;
-     int y = xy.y;
-     Position pos =  Position.fromRowColumn(x, y);
-     Stream<Position> jumpPositions = pos.jumpAdjacentPositions();
-     Stream<Position> adjacentPositions = pos.adjacentPositions();
-     Set<Position> posSet = adjacentPositions.collect(Collectors.toSet());
-     Set<Position> jumpPosSet = jumpPositions.collect(Collectors.toSet());
-     ArrayList<Position> returnable= new ArrayList<>();
+  ArrayList<Check> moves (Check xy) {
+    int x = xy.x;
+    int y = xy.y;
+    Position pos =  Position.fromRowColumn(x, y);
+    Stream<Position> jumpPositions = pos.jumpAdjacentPositions();
+    Stream<Position> adjacentPositions = pos.adjacentPositions();
+    Set<Position> posSet = adjacentPositions.collect(Collectors.toSet());
+    Set<Position> jumpPosSet = jumpPositions.collect(Collectors.toSet());
+    ArrayList<Check> returnable= new ArrayList<>();
 
 
-     if (xy.isEmpty()) {
-       throw new IllegalArgumentException("an empty spot has no moves");
-     }
+    if (xy.isEmpty()) {
+      throw new IllegalArgumentException("an empty spot has no moves");
+    }
 
-     if (this.mustMove(x, y))
-     {
-       // for postions in the set of jumpable positions
-       for(Position jumpTo: jumpPosSet) {
-         Check jumpPositionCheck = new Check(jumpTo.row(),jumpTo.column());
+    if (this.mustMove(x, y))
+    {
+      // for postions in the set of jumpable positions
+      for(Position jumpTo: jumpPosSet) {
+        Check jumpPositionCheck = new Check(jumpTo.row(),jumpTo.column());
 
-         //if the jump is empty, check the jumped piece and if it's the other player's, add that pos
-         if(jumpPositionCheck.isEmpty()){
-           Position jumpedPosition = pos.findJumpedPosition(jumpTo);
-           Check jumpedPositionCheck = new Check(jumpedPosition.row(), jumpedPosition.column());
-           if (!jumpedPositionCheck.isEmpty() &&
-               jumpedPositionCheck.getPiece().player() != xy.getPiece().player()&&
-               (xy.getPiece().isCrowned() ||
-                (!xy.getPiece().isCrowned() &&
-                 ((jumpTo.isAbove(jumpedPosition) && xy.getPiece().player() == Player.First) ||
+        //if the jump is empty, check the jumped piece and if it's the other player's, add that pos
+        if(jumpPositionCheck.isEmpty()){
+          Position jumpedPosition = pos.findJumpedPosition(jumpTo);
+          Check jumpedPositionCheck = new Check(jumpedPosition.row(), jumpedPosition.column());
+          if (!jumpedPositionCheck.isEmpty() &&
+              jumpedPositionCheck.getPiece().player() != xy.getPiece().player()&&
+              (xy.getPiece().isCrowned() ||
+               (!xy.getPiece().isCrowned() &&
+                ((jumpTo.isAbove(jumpedPosition) && xy.getPiece().player() == Player.First) ||
                  (jumpTo.isBelow(jumpedPosition) && xy.getPiece().player() == Player.Second))))){
-             returnable.add(jumpTo);
-           }
-         }
-       }
-     }
+            returnable.add(jumpPositionCheck);
+          }
+        }
+      }
+    }
     else if (this.hasMove(x, y))
-     {
-       for(Position moveTo: posSet) {
-         Check movePositionCheck = new Check(moveTo.row(),moveTo.column());
-         if (movePositionCheck.isEmpty()){
-           if (((moveTo.isAbove(pos) && xy.getPiece().player() == Player.First) ||
-                (moveTo.isBelow(pos) && xy.getPiece().player() == Player.Second)) ||
-               xy.getPiece().isCrowned())
-           {
-             returnable.add(moveTo);
-           }
-         }
-       }
-     }
-     return returnable;
-   }
+    {
+      for(Position moveTo: posSet) {
+        Check movePositionCheck = new Check(moveTo.row(),moveTo.column());
+        if (movePositionCheck.isEmpty()){
+          if (((moveTo.isAbove(pos) && xy.getPiece().player() == Player.First) ||
+               (moveTo.isBelow(pos) && xy.getPiece().player() == Player.Second)) ||
+              xy.getPiece().isCrowned())
+          {
+            returnable.add(movePositionCheck);
+          }
+        }
+      }
+    }
+    return returnable;
+  }
 }

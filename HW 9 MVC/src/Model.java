@@ -6,6 +6,7 @@ public class Model {
   int size;
   Status status;
   Player turn;
+  Check selected;
 
   //constructs a model that contains a board with the given size dimension
   Model(int s) {
@@ -13,6 +14,7 @@ public class Model {
     this.size = s;
     this.status = Status.Playing;
     this.turn = Player.First;
+    selected = null;
   }
 
   public static final class Builder {
@@ -81,20 +83,11 @@ public class Model {
   ArrayList<Check> movablePieces() {
     ArrayList<Check> worklist = board.getPlayersPieces(turn);
     ArrayList<Check> temp = new ArrayList<Check>();
-    ArrayList<Check> jumpable = new ArrayList<Check>();
 
     for (Check c : worklist) {
-      if (board.mustMove(c.x, c.y)){
-        jumpable.add(c);
-      }
-
       if (board.hasMove(c.x, c.y)) {
         temp.add(c);
       }
-    }
-
-    if (!jumpable.isEmpty()){
-      return jumpable;
     }
     return temp;
   }
@@ -132,4 +125,7 @@ public class Model {
     return board.getCheck(x, y);
   }
 
+  public void changeSelected(Check c) {
+    this.selected = c;
+  }
 }
