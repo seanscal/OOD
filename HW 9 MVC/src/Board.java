@@ -59,11 +59,31 @@ public class Board {
       throw new IllegalArgumentException("there is no coin to move");
     } else if (!(second.isEmpty())) {
       throw new IllegalArgumentException("cannot move to an occupied space");
+    }
+
+    if((first.x - second.x) == 2 && (first.y - second.y) == 2) {
+      Check del = getCheck(first.x - 1, first.y - 1);
+      changeCheck(del.x, del.y, del.piece);
+    } else if((first.x - second.x) == -2 && (first.y - second.y) == 2) {
+      Check del2 = getCheck(first.x + 1, first.y - 1);
+      changeCheck(del2.x, del2.y, del2.piece);
+    } else if((first.x - second.x) == -2 && (first.y - second.y) == -2) {
+      Check del3 = getCheck(first.x + 1, first.y + 1);
+      changeCheck(del3.x, del3.y, del3.piece);
+    } else if((first.x - second.x) == 2 && (first.y - second.y) == -2) {
+      Check del4 = getCheck(first.x - 1, first.y + 1);
+      changeCheck(del4.x, del4.y, del4.piece);
+    }
+    if (second.x == 7 && first.piece == Piece.NormalSecond) {
+      changeCheck(fx, fy, piece);
+      changeCheck(sx, sy, Piece.CrownedSecond);
+    } else if (second.x == 0 && first.piece == Piece.NormalFirst) {
+      changeCheck(fx, fy, piece);
+      changeCheck(sx, sy, Piece.CrownedFirst);
     } else {
       changeCheck(fx, fy, piece);
       changeCheck(sx, sy, piece);
     }
-
   }
 
   ArrayList<Check> getPlayersPieces(Player p) {
@@ -71,18 +91,18 @@ public class Board {
     if (p == Player.First) {
       for (int y = 0; y < dimension; y++) {
         for (int x = 0; x < dimension; x++) {
-          Piece pi = getCheck(x, y).getPiece();
+          Piece pi = getCheck(y, x).getPiece();
           if (pi == Piece.CrownedFirst || pi == Piece.NormalFirst) {
-            temp.add(getCheck(x, y));
+            temp.add(getCheck(y, x));
           }
         }
       }
     } else if (p == Player.Second) {
       for (int y = 0; y < dimension; y++) {
         for (int x = 0; x < dimension; x++) {
-          Piece pi = getCheck(x, y).getPiece();
+          Piece pi = getCheck(y, x).getPiece();
           if (pi == Piece.CrownedSecond || pi == Piece.NormalSecond) {
-            temp.add(getCheck(x, y));
+            temp.add(getCheck(y, x));
           }
         }
       }
@@ -125,18 +145,33 @@ public class Board {
     Set<Position> jumpPosSet = jumpPositions.collect(Collectors.toSet());
 
     for (Position p : jumpPosSet) {
-      Check checkJump = board.get(p.row()).get(p.column());
+      int row = p.row();
+      int col = p.column();
+      int xer = c.x;
+      int yer = c.y;
+      Check checkJump = board.get(p.column()).get(p.row());
       if (checkJump.isEmpty()) {
         Position jumpedPosition = pos.findJumpedPosition(p);
-        Check jumpedPositionCheck = board.get(jumpedPosition.row()).get(jumpedPosition.column());
+        Check jumpedPositionCheck = board.get(jumpedPosition.column()).get(jumpedPosition.row());
+        boolean empt = jumpedPositionCheck.isEmpty();
+        if (!jumpedPositionCheck.isEmpty()) {
+          Player q = jumpedPositionCheck.getPiece().player();
+        }
+        Player z = c.getPiece().player();
+        boolean r = p.isAbove(jumpedPosition);
 
-        if (!jumpedPositionCheck.isEmpty() &&
-            jumpedPositionCheck.getPiece().player() != c.getPiece().player() &&
-            (c.getPiece().isCrowned() ||
-             ((!c.getPiece().isCrowned() &&
-               ((p.isAbove(jumpedPosition) && c.getPiece().player() == Player.First) ||
-                (p.isBelow(jumpedPosition) && c.getPiece().player() == Player.Second)))))) {
-          return true;
+        if (!jumpedPositionCheck.isEmpty()) {
+          if (jumpedPositionCheck.getPiece().player() != c.getPiece().player()) {
+            if (c.getPiece().isCrowned()) {
+              return true;
+            } else if (!c.getPiece().isCrowned()) {
+              if (p.isAbove(jumpedPosition) && c.getPiece().player() == Player.First) {
+                return true;
+              } else if (p.isBelow(jumpedPosition) && c.getPiece().player() == Player.Second) {
+                return true;
+              }
+            }
+          }
         }
       }
     }
@@ -162,19 +197,24 @@ public class Board {
     {
       // for postions in the set of jumpable positions
       for(Position jumpTo: jumpPosSet) {
-        Check jumpPositionCheck = new Check(jumpTo.row(),jumpTo.column());
+        Check jumpPositionCheck = this.getCheck(jumpTo.row(), jumpTo.column());
 
         //if the jump is empty, check the jumped piece and if it's the other player's, add that pos
         if(jumpPositionCheck.isEmpty()){
           Position jumpedPosition = pos.findJumpedPosition(jumpTo);
-          Check jumpedPositionCheck = new Check(jumpedPosition.row(), jumpedPosition.column());
-          if (!jumpedPositionCheck.isEmpty() &&
-              jumpedPositionCheck.getPiece().player() != xy.getPiece().player()&&
-              (xy.getPiece().isCrowned() ||
-               (!xy.getPiece().isCrowned() &&
-                ((jumpTo.isAbove(jumpedPosition) && xy.getPiece().player() == Player.First) ||
-                 (jumpTo.isBelow(jumpedPosition) && xy.getPiece().player() == Player.Second))))){
-            returnable.add(jumpPositionCheck);
+          Check jumpedPositionCheck = this.getCheck(jumpedPosition.row(), jumpedPosition.column());
+          if (!jumpedPositionCheck.isEmpty()) {
+            if (jumpedPositionCheck.getPiece().player() != xy.getPiece().player()) {
+              if (xy.getPiece().isCrowned()) {
+                returnable.add(jumpPositionCheck);
+              } else if (!xy.getPiece().isCrowned()) {
+                if (jumpTo.isAbove(jumpedPosition) && xy.getPiece().player() == Player.First) {
+                  returnable.add(jumpPositionCheck);
+                } else if (jumpTo.isBelow(jumpedPosition) && xy.getPiece().player() == Player.Second) {
+                  returnable.add(jumpPositionCheck);
+                }
+              }
+            }
           }
         }
       }

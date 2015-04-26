@@ -28,7 +28,13 @@ public class ReadOnlyBoardView implements ReadOnlyBoardViewModel {
       } else {
         return c.getText();
       }
-    } else if (model.movablePieces().contains(c)) {
+    }
+    else if (model.movablePieces().contains(c)) {
+      for (Check temp : model.movablePieces()){
+        if (model.board.mustMove(temp.x,temp.y) && !model.board.mustMove(c.x,c.y)){
+          return c.getText();
+        }
+      }
       int moveNum = model.movablePieces().indexOf(c) + 1;
       if (c.piece.isCrowned()) {
         return "[[" + moveNum + "]]";

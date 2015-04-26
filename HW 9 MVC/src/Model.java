@@ -50,9 +50,11 @@ public class Model {
   }
 
   boolean isGameOver() {
-    if (status == Status.Playing) {
+    if (board.getPlayersPieces(Player.First).size() != 0 &&
+        board.getPlayersPieces(Player.Second).size()!= 0) {
       return false;
-    } else {
+    }
+    else {
       return true;
     }
   }
@@ -83,11 +85,18 @@ public class Model {
   ArrayList<Check> movablePieces() {
     ArrayList<Check> worklist = board.getPlayersPieces(turn);
     ArrayList<Check> temp = new ArrayList<Check>();
+    ArrayList<Check> havetomove = new ArrayList<Check>();
 
     for (Check c : worklist) {
+      if (board.mustMove(c.x, c.y)) {
+        havetomove.add(c);
+      }
       if (board.hasMove(c.x, c.y)) {
         temp.add(c);
       }
+    }
+    if (havetomove.size() != 0){
+      return havetomove;
     }
     return temp;
   }
@@ -101,7 +110,9 @@ public class Model {
       throw new IllegalArgumentException("this piece has no moves to make");
     }
     board.move(fx, fy, sx, sy);
-    turn = turn.other();
+    if (!board.mustMove(sx,sy)) {
+      turn = turn.other();
+    }
   }
 
   private boolean checkForWinner() {

@@ -80,7 +80,7 @@ public final class Controller {
 
   public void step2(int piece) throws IOException {
     Check c = model.movablePieces().get(piece - 1);
-    System.out.println("c x and y is " + Integer.toString(c.x) + Integer.toString(c.y));
+    System.out.println("c x and y is " + Integer.toString(c.x) + " " + Integer.toString(c.y));
     System.out.println(model.board.moves(c));
     ReadOnlyBoardViewModel bv = new ReadOnlyBoardView(model, c, true);
     view.draw(bv);
@@ -97,10 +97,17 @@ public final class Controller {
     model.move(c.x, c.y, moveIt.x, moveIt.y);
 
     if(model.isGameOver()) {
+      String winstring = "";
       // do something here, display winner or whatever, haven't taken the time to
       // finish one of his games yet
       view.draw(bv);
-      String winner = "[" + Character.toString(model.getWinner().toChar()) + "]";
+      if (model.getWinner().toChar() == '+'){
+        winstring = "First Player";
+      }
+      else if (model.getWinner().toChar() == 'o'){
+        winstring = "Second Player";
+      }
+      String winner = winstring + "(" + Character.toString(model.getWinner().toChar()) + ")";
       String winMessage = " is the winner";
       out.append(winner).append(winMessage);
     }
@@ -116,14 +123,15 @@ public final class Controller {
   }
 
   private String validateMove(int spacenumber) {
+    System.out.println(spacenumber);
     Check c = model.movablePieces().get((spacenumber - 1));
+    //System.out.println(model.board.moves(c).size());
     // need to write a method that returns an array of move options for a given check
-    if(spacenumber <= 0 || spacenumber > model.board.moves(c).size()) {
+    if(c.x < 0|| c.x >= model.size || c.y < 0 || c.y >= model.size) {
       return "You cannot move to that space";
     }
 
     //It's valid!
     return null;
   }
-
 }
