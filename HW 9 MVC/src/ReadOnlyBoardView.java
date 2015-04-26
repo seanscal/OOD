@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
@@ -28,10 +29,14 @@ public class ReadOnlyBoardView implements ReadOnlyBoardViewModel {
       if (c.equals(selected)) {
         return "<" + c.getText() + ">";
       }
+      ArrayList<Check> x = model.board.moves(selected);
       if (model.board.moves(selected).contains(c)) {
+        int e = model.board.moves(selected).size();
+        int wrong = model.board.moves(selected).indexOf(c);
         int optionNum = model.board.moves(selected).indexOf(c) + 1;
         return "[" + optionNum + "]";
-      } else {
+      }
+      else {
         return c.getText();
       }
     }

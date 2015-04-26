@@ -212,7 +212,7 @@ public class Board {
     else if (this.hasMove(x, y))
     {
       for(Position moveTo: posSet) {
-        Check movePositionCheck = new Check(moveTo.row(),moveTo.column());
+        Check movePositionCheck = this.getCheck(moveTo.row(), moveTo.column());
         if (movePositionCheck.isEmpty()){
           if (((moveTo.isAbove(pos) && xy.getPiece().player() == Player.First) ||
                (moveTo.isBelow(pos) && xy.getPiece().player() == Player.Second)) ||
