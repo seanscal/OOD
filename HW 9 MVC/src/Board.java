@@ -3,6 +3,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * represents a checkers board
+ */
 public class Board {
 
   ArrayList<ArrayList<Check>> board;
@@ -17,9 +20,9 @@ public class Board {
       ArrayList<Check> row = new ArrayList<Check>();
       for (int y = 0; y < dimension; y++) {
         if ((y < (dimension - placeoffset)) && Util.placePiece(y,x)) {
-          row.add(new Check(Piece.NormalSecond, y, x, false));
+          row.add(new Check(Piece.NormalSecond, y, x));
         } else if (y >= placeoffset && Util.placePiece(y,x)) {
-          row.add(new Check(Piece.NormalFirst, y, x, false));
+          row.add(new Check(Piece.NormalFirst, y, x));
         } else {
           row.add(new Check(y, x));
         }
@@ -27,29 +30,52 @@ public class Board {
       temp.add(row);
     }
     this.board = temp;
-
     this.dimension = dimension;
   }
 
+  /**
+   * gets the check at the given location
+   * @param x the row
+   * @param y the column
+   * @return the check at this location
+   * @throws java.lang.IndexOutOfBoundsException if the row or column is not within this board
+   */
   Check getCheck(int x, int y) {
-    if (x < 0 || x > dimension || y < 0 || y > dimension) {
+    if (x < 0 || x >= dimension || y < 0 || y >= dimension) {
       throw new IndexOutOfBoundsException("that is not a space on the board");
     }
-
     return board.get(y).get(x);
   }
 
+  /**
+   * changes the piece or empty status of this check
+   * @param x the row
+   * @param y the column
+   * @param p the intended piece
+   * @return the new Check
+   */
   Check changeCheck(int x, int y, Piece p) {
     Check work = getCheck(x, y);
+    //if the given piece is different than the one the check has, change it to it
     if (p != work.piece) {
-      board.get(y).set(x, new Check(p, x, y, false));
-      return new Check(p, x, y, false);
+      board.get(y).set(x, new Check(p, x, y));
+      return new Check(p, x, y);
+      //if the piece is the same as the one the check has, make it empty
     } else {
       board.get(y).set(x, new Check(x, y));
       return new Check(x, y);
     }
   }
 
+  /**
+   * moves the given check piece to the given location, deletes any jumped checks
+   * @param fx the row of the check
+   * @param fy the column of the check
+   * @param sx the row of the new location
+   * @param sy the column of the new location
+   * @throws java.lang.IllegalArgumentException if there is no piece to move on the given space,
+   * or if there is a piece occupying the space to be moved to
+   */
   void move(int fx, int fy, int sx, int sy) {
     Check first = getCheck(fx, fy);
     Check second = getCheck(sx, sy);
@@ -61,6 +87,7 @@ public class Board {
       throw new IllegalArgumentException("cannot move to an occupied space");
     }
 
+    // deletes a piece if it is jumped
     if((first.x - second.x) == 2 && (first.y - second.y) == 2) {
       Check del = getCheck(first.x - 1, first.y - 1);
       changeCheck(del.x, del.y, del.piece);
@@ -74,6 +101,7 @@ public class Board {
       Check del4 = getCheck(first.x - 1, first.y + 1);
       changeCheck(del4.x, del4.y, del4.piece);
     }
+    // crowns pieces if they reach the edges of the board
     if (second.x == 7 && first.piece == Piece.NormalSecond) {
       changeCheck(fx, fy, piece);
       changeCheck(sx, sy, Piece.CrownedSecond);
@@ -86,6 +114,11 @@ public class Board {
     }
   }
 
+  /**
+   * gets all of the pieces belonging to this player
+   * @param p the player
+   * @return an arrayList of the checks the given player has pieces on
+   */
   ArrayList<Check> getPlayersPieces(Player p) {
     ArrayList<Check> temp = new ArrayList<>();
     if (p == Player.First) {
@@ -110,6 +143,13 @@ public class Board {
     return temp;
   }
 
+  /**
+   * does the check at the given coordinates have any moves
+   * @param x the row
+   * @param y the column
+   * @return boolean true if the piece can move somewhere
+   * @throws java.lang.IllegalArgumentException if there is no piece on the check
+   */
   boolean hasMove(int x, int y) {
     Position pos = Position.fromRowColumn(x, y);
     Stream<Position> adjacentPositions = pos.adjacentPositions();
@@ -134,6 +174,12 @@ public class Board {
   }
 
 
+  /**
+   * determines if the piece at the given coordinates can jump a piece, and therefore must move
+   * @param x the row of piece
+   * @param y the column of piece
+   * @return boolean if it must move
+   */
   boolean mustMove(int x, int y) {
     Check c = getCheck(x, y);
     if (c.isEmpty()) {
@@ -145,10 +191,21 @@ public class Board {
     Set<Position> jumpPosSet = jumpPositions.collect(Collectors.toSet());
 
     for (Position p : jumpPosSet) {
+      int row = p.row();
+      int col = p.column();
+      int xer = c.x;
+      int yer = c.y;
       Check checkJump = board.get(p.column()).get(p.row());
       if (checkJump.isEmpty()) {
         Position jumpedPosition = pos.findJumpedPosition(p);
         Check jumpedPositionCheck = board.get(jumpedPosition.column()).get(jumpedPosition.row());
+        boolean empt = jumpedPositionCheck.isEmpty();
+        if (!jumpedPositionCheck.isEmpty()) {
+          Player q = jumpedPositionCheck.getPiece().player();
+        }
+        Player z = c.getPiece().player();
+        boolean r = p.isAbove(jumpedPosition);
+
         if (!jumpedPositionCheck.isEmpty()) {
           if (jumpedPositionCheck.getPiece().player() != c.getPiece().player()) {
             if (c.getPiece().isCrowned()) {
@@ -167,8 +224,12 @@ public class Board {
     return false;
   }
 
-  ArrayList<Check> moves (Check xy) {
-
+  /**
+   * returns a list of all the moves this check can make
+   * @param xy the check
+   * @return arraylist of checks this check piece could or must move to
+   */
+  ArrayList<Check> moves(Check xy) {
     int x = xy.x;
     int y = xy.y;
     Position pos =  Position.fromRowColumn(x, y);
@@ -177,7 +238,6 @@ public class Board {
     Set<Position> posSet = adjacentPositions.collect(Collectors.toSet());
     Set<Position> jumpPosSet = jumpPositions.collect(Collectors.toSet());
     ArrayList<Check> returnable= new ArrayList<>();
-
 
     if (xy.isEmpty()) {
       throw new IllegalArgumentException("an empty spot has no moves");
@@ -222,6 +282,10 @@ public class Board {
           }
         }
       }
+    }
+    returnable =  Util.sort(returnable);
+    if(xy.piece.player() == Player.Second) {
+      returnable = Util.reverse(returnable);
     }
     return returnable;
   }

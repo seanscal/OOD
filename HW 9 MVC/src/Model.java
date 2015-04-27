@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * represents the data for a checkers game
+ */
 public class Model {
 
   Board board;
@@ -17,42 +20,88 @@ public class Model {
     selected = null;
   }
 
+  /**
+   * the possible states of the game
+   */
+  public enum Status {
+    Playing, Won;
+  }
+
+  /**
+   * a Builder to create models of default or specified size
+   */
   public static final class Builder {
 
+    /**
+     * builds a model of default size 8
+     * @return a checkers model
+     */
     public Model build() {
       return new Model(8);
     }
 
+    /**
+     * builds a model of given size
+     * @param size width/height length
+     * @return model of that dimension
+     */
     public Model build(int size) {
       return new Model(size);
     }
-
   }
 
+  /**
+   * builds model
+   * @return default model
+   */
   static Model checkers() {
     return builder().build();
   }
 
+  /**
+   * @return new builder to call methods from
+   */
   static Builder builder() {
     return new Builder();
   }
 
+  /**
+   * @return the width of this model
+   */
   int getWidth() {
     return size;
   }
 
+  /**
+   * @return the height of this model
+   */
   int getHeight() {
     return size;
   }
 
+  /**
+   * @return the status of the game
+   */
   Status getStatus() {
     return status;
   }
 
+  /**
+   * @return boolean if the game is over
+   */
   boolean isGameOver() {
-    return checkForWinner();
+    if (board.getPlayersPieces(Player.First).size() != 0 &&
+        board.getPlayersPieces(Player.Second).size()!= 0) {
+      return false;
+    }
+    else {
+      return true;
+    }
   }
 
+  /**
+   * @return the next player to take a turn
+   */
   Player getNextPlayer() {
     if (isGameOver()) {
       throw new IllegalStateException("the game is over, there is non next player");
@@ -60,6 +109,10 @@ public class Model {
     return turn;
   }
 
+  /**
+   * @return the winner of the game
+   * @throws java.lang.IllegalStateException if the game isn't over yet
+   */
   public Player getWinner() {
     if (getStatus() != Status.Won) {
       throw new IllegalStateException("the game isn't over yet");
@@ -68,6 +121,10 @@ public class Model {
     return turn;
   }
 
+  /**
+   * gets the pieces that can or must move on this turn
+   * @return an arrayList of Checks of the pieces that can or must move
+   */
   ArrayList<Check> movablePieces() {
     ArrayList<Check> worklist = board.getPlayersPieces(turn);
     ArrayList<Check> temp = new ArrayList<Check>();
@@ -82,6 +139,9 @@ public class Model {
       }
     }
     if (havetomove.size() != 0){
+      if(turn == Player.Second) {
+        havetomove = Util.reverse(havetomove);
+      }
       return havetomove;
     }
 
@@ -91,6 +151,13 @@ public class Model {
     return temp;
   }
 
+  /**
+   * moves the piece at the given check to the given location
+   * @param fx the piece row
+   * @param fy the piece column
+   * @param sx the new location row
+   * @param sy the new location column
+   */
   public void move(int fx, int fy, int sx, int sy) {
     Check first = board.getCheck(fx, fy);
     if (turn != first.piece.player()) {
@@ -119,28 +186,15 @@ public class Model {
     turn = turn.other();
   }
 
-  private boolean checkForWinner() {
-    ArrayList<Check> firstp = board.getPlayersPieces(Player.First);
-    ArrayList<Check> secondp = board.getPlayersPieces(Player.Second);
 
-    if(firstp.size() == 0) {
-      status = Status.Won;
-      turn = Player.Second;
-      return true;
-    } else if(secondp.size() == 0) {
-      status = Status.Won;
-      turn = Player.First;
-      return true;
-    } else {
-      return false;
-    }
-  }
-
+  /**
+   *gets the check at the given location on this models board
+   * @param x the row
+   * @param y the column
+   * @return
+   */
   public Check getCheckAt(int x, int y) {
     return board.getCheck(x, y);
   }
 
-  public void changeSelected(Check c) {
-    this.selected = c;
-  }
 }

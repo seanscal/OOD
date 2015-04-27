@@ -1,7 +1,10 @@
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
+
+/**
+ * implementation of ReadOnlyBoardViewModel for this checkers game
+ */
 
 public class ReadOnlyBoardView implements ReadOnlyBoardViewModel {
 
@@ -29,14 +32,10 @@ public class ReadOnlyBoardView implements ReadOnlyBoardViewModel {
       if (c.equals(selected)) {
         return "<" + c.getText() + ">";
       }
-      ArrayList<Check> x = model.board.moves(selected);
       if (model.board.moves(selected).contains(c)) {
-        int e = model.board.moves(selected).size();
-        int wrong = model.board.moves(selected).indexOf(c);
         int optionNum = model.board.moves(selected).indexOf(c) + 1;
         return "[" + optionNum + "]";
-      }
-      else {
+      } else {
         return c.getText();
       }
     }
@@ -56,40 +55,6 @@ public class ReadOnlyBoardView implements ReadOnlyBoardViewModel {
       return c.getText();
     }
   }
-
-
-/*
-    for (Check check : model.movablePieces()){
-      if (check.equals(model.selected)){
-        int g = 0;
-        Position p = Position.fromRowColumn(row, column);
-        int count = 0;
-        for(Position move : c.moves()){
-          if (p == move){
-            count++;
-            return "[" + count + "]";
-          }
-        }
-      }
-    }
-    */
-
-    /*
-    if (c.isSelected) {
-      return "<" + c.getText() + ">";
-    }
-    else if (model.movablePieces().contains(c)) {
-      int moveNum = 1 + model.movablePieces().indexOf(c);
-      if (c.getPiece().isCrowned()) {
-        return "[[" + Integer.toString(moveNum) + "]]";
-      } else {
-        return "[" + Integer.toString(moveNum) + "]";
-      }
-    } else {
-      return model.getCheckAt(row, column).getText();
-    }
-    */
-  // }
 
   @Override
   public boolean isValidPosition(int row, int column) {

@@ -1,7 +1,7 @@
 import java.io.IOException;
 
 /**
- * Runs the game
+ * Runs an instance of the default game
  */
 public final class Main {
   public static void main(String[] args) throws IOException {
