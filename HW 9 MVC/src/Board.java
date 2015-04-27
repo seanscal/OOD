@@ -260,7 +260,9 @@ public class Board {
               } else if (!xy.getPiece().isCrowned()) {
                 if (jumpTo.isAbove(jumpedPosition) && xy.getPiece().player() == Player.First) {
                   returnable.add(jumpPositionCheck);
-                } else if (jumpTo.isBelow(jumpedPosition) && xy.getPiece().player() == Player.Second) {
+                }
+                else if (jumpTo.isBelow(jumpedPosition) &&
+                         xy.getPiece().player() == Player.Second) {
                   returnable.add(jumpPositionCheck);
                 }
               }
